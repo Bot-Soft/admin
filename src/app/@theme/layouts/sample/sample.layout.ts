@@ -29,8 +29,8 @@ import 'rxjs/add/operator/delay';
                    responsive
                    [right]="sidebar.id === 'right'">
         <nb-sidebar-header>
-          <a href="#" class="btn btn-hero-success main-btn">
-            <i class="ion ion-social-github"></i> <span>Support Us</span>
+          <a href="#" class="btn btn-hero-info main-btn">
+            <i class="ion ion-social-facebook-outline"></i> <span>Test the bot</span>
           </a>
         </nb-sidebar-header>
         <ng-content select="nb-menu"></ng-content>
@@ -47,10 +47,6 @@ import 'rxjs/add/operator/delay';
       <nb-layout-column right class="small" *ngIf="layout.id === 'three-column'">
         <nb-menu [items]="subMenu"></nb-menu>
       </nb-layout-column>
-
-      <nb-layout-footer fixed>
-        <ngx-footer></ngx-footer>
-      </nb-layout-footer>
 
       <nb-sidebar class="settings-sidebar"
                    tag="settings-sidebar"
