@@ -13,8 +13,8 @@ export const DEFAULT_THEME = {
     ],
 
     solar: {
-      gradientLeft: '#0084ff',
-      gradientRight: '#0084ff',
+      gradientLeft: '#42db7c',
+      gradientRight: '#42db7c',
       shadowColor: 'rgba(0, 0, 0, 0)',
       radius: ['80%', '90%'],
     },
