@@ -9,14 +9,14 @@ declare const echarts: any;
   template: `
     <nb-card size="xsmall" class="solar-card">
       <nb-card-header>
-        Solar Energy Consumption
+        {{title}}
       </nb-card-header>
       <nb-card-body>
         <div echarts [options]="option" class="echart">
         </div>
         <div class="info">
-          <div class="value">6. 421 kWh</div>
-          <div class="details"><span>out of</span> 8.421 kWh</div>
+          <div class="value">{{segment}}$</div>
+          <div class="details"><span>out of</span> {{total}}$</div>
         </div>
       </nb-card-body>
     </nb-card>
@@ -24,17 +24,11 @@ declare const echarts: any;
 })
 export class ChartComponent implements AfterViewInit, OnDestroy {
 
-  private value = 0;
+  @Input() title: string;
+  @Input() total: number;
+  @Input() segment: number;
 
-  @Input('chartValue')
-  set chartValue(value: number) {
-    this.value = value;
-    if (this.option.series) {
-      this.option.series[0].data[0].value = value;
-      this.option.series[0].data[1].value = 100 - value;
-      this.option.series[1].data[0].value = value;
-    }
-  }
+  private value;
 
   option: any = {};
   themeSubscription: any;
@@ -43,6 +37,7 @@ export class ChartComponent implements AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit() {
+    this.value = Math.floor((this.segment / this.total) * 100);
     this.themeSubscription = this.theme.getJsTheme().delay(1).subscribe(config => {
 
       const solarTheme: any = config.variables.solar;
@@ -157,7 +152,7 @@ export class ChartComponent implements AfterViewInit, OnDestroy {
                 hoverAnimation: false,
               },
               {
-                value: 28,
+                value: 100,
                 name: ' ',
                 tooltip: {
                   show: false,
