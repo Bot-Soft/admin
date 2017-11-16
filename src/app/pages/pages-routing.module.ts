@@ -14,10 +14,10 @@ const routes: Routes = [{
     component: CategoriesComponent,
   }, {
     path: 'items',
-    component: CategoriesComponent,
+    component: ItemsComponent,
   }, {
     path: 'people',
-    component: CategoriesComponent,
+    component: PeopleComponent,
   }, {
     path: '',
     redirectTo: 'categories',

@@ -15,4 +15,4 @@ import { PeopleCardComponent } from './card/card.component';
     PeopleCardComponent,
   ],
 })
-export class ItemsModule { }
+export class PeopleModule { }

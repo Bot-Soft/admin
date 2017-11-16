@@ -1,0 +1,29 @@
+<nb-card size="small">
+  <nb-card-body>
+    <div class="picture" style.background-image="url({{image}})"></div>
+
+    <div class="details">
+      <div class="title">
+        {{title}}
+      </div>
+      <div class="description">
+        {{text}}
+      </div>
+    </div>
+  </nb-card-body>
+
+
+  <nb-card-footer>
+    <nb-actions size="medium" fullWidth>
+      <nb-action title="Sell Rate">
+        {{sellrate}}
+      </nb-action>
+      <nb-action  title="Single Price">
+        {{price}}
+      </nb-action>
+      <nb-action>
+        <a href="#">Edit</a>
+      </nb-action>
+    </nb-actions>
+  </nb-card-footer>
+</nb-card>

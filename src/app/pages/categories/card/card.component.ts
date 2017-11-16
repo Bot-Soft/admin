@@ -9,7 +9,9 @@ declare const echarts: any;
   template: `
     <nb-card size="xsmall" class="solar-card">
       <nb-card-header>
+      <a href="/#/bot/items">
         {{title}}
+        </a>
       </nb-card-header>
       <nb-card-body>
         <div echarts [options]="option" class="echart">

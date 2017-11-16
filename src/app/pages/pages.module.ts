@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 
 import { PagesComponent } from './pages.component';
 import { CategoriesModule } from './categories/categories.module';
+import { ItemsModule } from './items/items.module';
+import { PeopleModule } from './people/people.module';
 import { PagesRoutingModule } from './pages-routing.module';
 import { ThemeModule } from '../@theme/theme.module';
 
@@ -14,6 +16,8 @@ const PAGES_COMPONENTS = [
     PagesRoutingModule,
     ThemeModule,
     CategoriesModule,
+    ItemsModule,
+    PeopleModule,
   ],
   declarations: [
     ...PAGES_COMPONENTS,
