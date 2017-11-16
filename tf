@@ -1,1 +1,0 @@
-/Users/atsvetkov/tools/terraform
