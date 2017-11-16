@@ -31,7 +31,7 @@ export class PeopleCardComponent {
 
   @Input() avatar: string;
   @Input() name: string;
-  @Input() gender:string;
+  @Input() gender: string;
 
   private value;
 
