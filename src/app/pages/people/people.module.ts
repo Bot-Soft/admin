@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { AngularEchartsModule } from 'ngx-echarts';
 import { ThemeModule } from '../../@theme/theme.module';
-import { CategoriesComponent } from './categories.component';
-import { CategoriesCardComponent } from './card/card.component';
+import { PeopleComponent } from './people.component';
+import { PeopleCardComponent } from './card/card.component';
 
 
 @NgModule({
@@ -11,8 +11,8 @@ import { CategoriesCardComponent } from './card/card.component';
     AngularEchartsModule,
   ],
   declarations: [
-    CategoriesComponent,
-    CategoriesCardComponent,
+    PeopleComponent,
+    PeopleCardComponent,
   ],
 })
-export class CategoriesModule { }
+export class ItemsModule { }
