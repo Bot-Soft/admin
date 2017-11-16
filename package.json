@@ -15,7 +15,7 @@
     "start": "ng serve",
     "start:hmr": "ng serve --hmr",
     "start:aot": "ng serve --aot",
-    "build": "rimraf dist && ng build",
+    "build": "rimraf dist && rimraf docs && ng build",
     "build:prod": "npm run build -- --prod",
     "build:prod:aot": "npm run build:prod -- --aot",
     "build:ci": "npm-run-all -p -r build:prod build:prod:aot",
