@@ -16,9 +16,11 @@
   <nb-card-footer>
     <nb-actions size="medium" fullWidth>
       <nb-action title="Sell Rate">
-        {{sellrate}}
+        <div class="btn btn-{{status}}">
+          {{sellrate}}
+        </div>
       </nb-action>
-      <nb-action  title="Single Price">
+      <nb-action title="Single Price">
         {{price}}
       </nb-action>
       <nb-action>

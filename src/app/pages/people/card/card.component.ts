@@ -14,9 +14,6 @@ declare const echarts: any;
     <nb-card-footer>
     <nb-actions size="xsmall" fullWidth>
       <nb-action>
-        <a href="#"><i class="ion-ios-compose-outline" style="font-size: 25px;" title="Edit"></i></a>
-      </nb-action>
-      <nb-action>
         <a href="#"><i class="ion-ios-chatboxes-outline" style="font-size: 25px;" title="Message"></i></a>
       </nb-action>
       <nb-action>

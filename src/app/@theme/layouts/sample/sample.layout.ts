@@ -29,7 +29,7 @@ import 'rxjs/add/operator/delay';
                    responsive
                    [right]="sidebar.id === 'right'">
         <nb-sidebar-header>
-          <a href="#" class="btn btn-hero-info main-btn">
+          <a href="#" class="btn btn-info main-btn">
             <span>Support Us</span>
           </a>
         </nb-sidebar-header>

@@ -13,6 +13,7 @@ export class ItemsCardComponent implements OnDestroy {
   @Input() text: string;
   @Input() price: string;
   @Input() sellrate: string;
+  @Input() status: string;
 
   currentTheme: string;
   themeSubscription: any;
