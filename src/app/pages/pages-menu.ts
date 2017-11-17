@@ -19,4 +19,10 @@ export const MENU_ITEMS: NbMenuItem[] = [
     link: '/bot/people',
     home: true,
   },
+  {
+    title: 'Settings',
+    icon: 'ion-ios-gear-outline',
+    link: '/bot/settings',
+    home: true,
+  },
 ];

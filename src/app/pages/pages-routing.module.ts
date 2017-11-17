@@ -5,6 +5,7 @@ import { PagesComponent } from './pages.component';
 import { CategoriesComponent } from './categories/categories.component';
 import { ItemsComponent } from './items/items.component';
 import { PeopleComponent } from './people/people.component';
+import { SettingsComponent } from './settings/settings.component';
 
 const routes: Routes = [{
   path: '',
@@ -19,6 +20,9 @@ const routes: Routes = [{
     path: 'people',
     component: PeopleComponent,
   }, {
+    path: 'settings',
+    component: SettingsComponent,
+  },{
     path: '',
     redirectTo: 'categories',
     pathMatch: 'full',
