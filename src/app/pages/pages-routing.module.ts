@@ -22,7 +22,7 @@ const routes: Routes = [{
   }, {
     path: 'settings',
     component: SettingsComponent,
-  },{
+  }, {
     path: '',
     redirectTo: 'categories',
     pathMatch: 'full',
