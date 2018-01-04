@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 
 import { PagesComponent } from './pages.component';
+import { LoginModule } from './login/login.module';
 import { CategoriesModule } from './categories/categories.module';
 import { ItemsModule } from './items/items.module';
 import { PeopleModule } from './people/people.module';
@@ -14,6 +15,7 @@ const PAGES_COMPONENTS = [
 
 @NgModule({
   imports: [
+    LoginModule,
     PagesRoutingModule,
     ThemeModule,
     CategoriesModule,

@@ -5,6 +5,7 @@ import { PagesComponent } from './pages.component';
 import { CategoriesComponent } from './categories/categories.component';
 import { ItemsComponent } from './items/items.component';
 import { PeopleComponent } from './people/people.component';
+import { LoginComponent } from './login/login.component';
 import { SettingsComponent } from './settings/settings.component';
 
 const routes: Routes = [{

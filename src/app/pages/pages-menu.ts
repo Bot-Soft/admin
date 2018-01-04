@@ -13,16 +13,16 @@ export const MENU_ITEMS: NbMenuItem[] = [
     link: '/bot/items',
     home: true,
   },
-  {
-    title: 'People',
-    icon: 'ion-ios-people-outline',
-    link: '/bot/people',
-    home: true,
-  },
-  {
-    title: 'Settings',
-    icon: 'ion-ios-gear-outline',
-    link: '/bot/settings',
-    home: true,
-  },
+  // {
+  //   title: 'People',
+  //   icon: 'ion-ios-people-outline',
+  //   link: '/bot/people',
+  //   home: true,
+  // },
+  // {
+  //   title: 'Settings',
+  //   icon: 'ion-ios-gear-outline',
+  //   link: '/bot/settings',
+  //   home: true,
+  // },
 ];
