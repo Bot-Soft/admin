@@ -1,0 +1,17 @@
+<ngx-blank-layout>
+  <content>
+    <div class="col-md-6 offset-md-3 col-sm-12 col-lg-6">
+      <nb-card [size]="'small'" style="height: 100%">
+        <nb-card-header style="text-align:center">
+          Setup Chatbot on Your Facebook Page
+        </nb-card-header>
+        <nb-card-body>
+          <div class="contact" *ngFor="let fbpage of fbpages">
+            <nb-user [name]="fbpage.name" [title]="fbpage.category" picture="http://graph.facebook.com/{{ fbpage.id }}/picture" size="large"></nb-user>
+            <i class="i-contact ion-ios-download-outline" (click)="setup(fbpage.id, fbpage.access_token)"></i>
+          </div>
+        </nb-card-body>
+      </nb-card>
+    </div>
+  </content>
+</ngx-blank-layout>

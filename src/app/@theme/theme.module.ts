@@ -28,8 +28,8 @@ import {
 import { CapitalizePipe, PluralPipe, RoundPipe, TimingPipe } from './pipes';
 import {
   OneColumnLayoutComponent,
-  SampleLayoutComponent,
-  LoginLayoutComponent,
+  MainLayoutComponent,
+  BlankLayoutComponent,
   ThreeColumnsLayoutComponent,
   TwoColumnsLayoutComponent,
 } from './layouts';
@@ -60,8 +60,8 @@ const COMPONENTS = [
   ThemeSettingsComponent,
   TinyMCEComponent,
   OneColumnLayoutComponent,
-  SampleLayoutComponent,
-  LoginLayoutComponent,
+  MainLayoutComponent,
+  BlankLayoutComponent,
   ThreeColumnsLayoutComponent,
   TwoColumnsLayoutComponent,
 ];

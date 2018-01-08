@@ -16,49 +16,11 @@ import 'rxjs/add/operator/delay';
 
 // TODO: move layouts into the framework
 @Component({
-  selector: 'ngx-sample-layout',
-  styleUrls: ['./sample.layout.scss'],
-  template: `
-    <nb-layout [center]="layout.id === 'center-column'" windowMode>
-      <nb-layout-header fixed>
-        <ngx-header [position]="sidebar.id === 'left' ? 'normal': 'inverse'"></ngx-header>
-      </nb-layout-header>
-
-      <nb-sidebar class="menu-sidebar"
-                   tag="menu-sidebar"
-                   responsive
-                   [right]="sidebar.id === 'right'">
-        <nb-sidebar-header>
-          <a href="#" class="btn btn-info main-btn">
-            <span>Support Us</span>
-          </a>
-        </nb-sidebar-header>
-        <ng-content select="nb-menu"></ng-content>
-      </nb-sidebar>
-
-      <nb-layout-column class="main-content">
-        <ng-content select="router-outlet"></ng-content>
-      </nb-layout-column>
-
-      <nb-layout-column left class="small" *ngIf="layout.id === 'two-column' || layout.id === 'three-column'">
-        <nb-menu [items]="subMenu"></nb-menu>
-      </nb-layout-column>
-
-      <nb-layout-column right class="small" *ngIf="layout.id === 'three-column'">
-        <nb-menu [items]="subMenu"></nb-menu>
-      </nb-layout-column>
-
-      <nb-sidebar class="settings-sidebar"
-                   tag="settings-sidebar"
-                   state="collapsed"
-                   fixed
-                   [right]="sidebar.id !== 'right'">
-        <ngx-theme-settings></ngx-theme-settings>
-      </nb-sidebar>
-    </nb-layout>
-  `,
+  selector: 'ngx-main-layout',
+  styleUrls: ['./main.layout.scss'],
+  templateUrl: './main.layout.html',
 })
-export class SampleLayoutComponent  implements OnDestroy {
+export class MainLayoutComponent  implements OnDestroy {
 
   subMenu: NbMenuItem[] = [
     {

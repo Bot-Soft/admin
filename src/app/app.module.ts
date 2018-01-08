@@ -15,6 +15,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { ThemeModule } from './@theme/theme.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { LoginModule } from "./pages/login/login.module";
+import { FbPagesModule } from "./pages/fbpages/fbpages.module";
 
 @NgModule({
   declarations: [AppComponent],
@@ -24,6 +25,7 @@ import { LoginModule } from "./pages/login/login.module";
     HttpModule,
     AppRoutingModule,
     LoginModule,
+    FbPagesModule,
 
     NgbModule.forRoot(),
     ThemeModule.forRoot(),
