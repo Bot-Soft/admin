@@ -72,17 +72,22 @@ export class FbPagesComponent implements OnInit, OnDestroy {
     console.log(pageId);
     console.log(pageAccessToken);
 
-    this.http.post('https://3klcm8k5x0.execute-api.eu-central-1.amazonaws.com/latest/setup', {
-      page_id: pageId,
-      access_token: pageAccessToken
-    }).subscribe(
-      res => {
-        console.log(res);
-      },
-      err => {
-        console.log(err);
-      }
-      );
+    FB.api("/me", (response) => {
+      this.http.post('https://3klcm8k5x0.execute-api.eu-central-1.amazonaws.com/latest/setup', {
+        page_id: pageId,
+        access_token: pageAccessToken,
+        user_id: response.id,
+        name: response.name
+      }).subscribe(
+        res => {
+          console.log(res);
+        },
+        err => {
+          console.log(err);
+        }
+        );
+    });
+
   }
 
   ngOnDestroy() {
