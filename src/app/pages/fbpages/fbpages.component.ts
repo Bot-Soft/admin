@@ -81,6 +81,7 @@ export class FbPagesComponent implements OnInit, OnDestroy {
       }).subscribe(
         res => {
           console.log(res);
+          window.location.replace("/#/categories");
         },
         err => {
           console.log(err);
