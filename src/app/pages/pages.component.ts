@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 
 import { MENU_ITEMS } from './pages-menu';
+import { Http } from '@angular/http';
+import { ActivatedRoute } from '@angular/router';
 declare let window: any;
 declare let FB: any;
 
@@ -8,16 +10,19 @@ declare let FB: any;
   selector: 'ngx-pages',
   template: `
     <ngx-main-layout>
-      <nb-menu [items]="menu"></nb-menu>
+      <nb-menu *ngIf="menu" [items]="menu"></nb-menu>
       <router-outlet></router-outlet>
     </ngx-main-layout>
   `,
 })
 export class PagesComponent {
 
-  menu = MENU_ITEMS;
+  // menu = MENU_ITEMS;
+  menu;
 
-  constructor() {
+  constructor(private http: Http, private route: ActivatedRoute) {
+
+    let that = this;
     
     FB.getLoginStatus(function (response) {
       if (response.status === "connected") {
@@ -29,8 +34,22 @@ export class PagesComponent {
         let uid = response.authResponse.userID;
         let accessToken = response.authResponse.accessToken;
 
-        console.log("UID: " + uid);
-        console.log("accessToken: " + accessToken);
+        let botId = that.route.snapshot.params.id;
+        that.http.get('https://3klcm8k5x0.execute-api.eu-central-1.amazonaws.com/latest/bots/' + botId + '/?access_token=' + accessToken)
+          .map(response => response.json()).subscribe(res => {
+            let menuItems = [];
+
+            res.blocks.areas.forEach(element => {
+              menuItems.push(element);
+            });
+
+            menuItems.sort((a, b) => {
+              return a.order - b.order;
+            });
+
+            that.menu = menuItems;
+          }
+          );
 
       } else if (response.status === "not_authorized") {
         // the user is logged in to Facebook,

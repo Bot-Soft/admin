@@ -4,11 +4,11 @@ import { LoginComponent } from './pages/login/login.component';
 import { FbPagesComponent } from './pages/fbpages/fbpages.component';
 
 const routes: Routes = [
-  { path: 'bot', loadChildren: 'app/pages/pages.module#PagesModule' },
+  { path: 'bot/:id', loadChildren: 'app/pages/pages.module#PagesModule' },
   { path: 'auth', component: LoginComponent },
   { path: 'pages', component: FbPagesComponent },
   { path: '', redirectTo: 'auth', pathMatch: 'full' },
-  { path: '**', redirectTo: 'bot' },
+  { path: '**', redirectTo: 'pages' },
 ];
 
 const config: ExtraOptions = {
