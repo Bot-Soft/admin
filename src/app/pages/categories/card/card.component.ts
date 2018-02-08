@@ -26,7 +26,7 @@ declare const echarts: any;
       <a href="#">Edit</a>
     </nb-action>
     <nb-action>
-    <a href="{{items_url}}"><b>Items</b></a>
+    <a href="{{items_url}}" style="color:#42db7c"><b>Items</b></a>
   </nb-action>
     <nb-action>
     <a href="#">Delete</a>

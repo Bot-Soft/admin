@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { AngularEchartsModule } from 'ngx-echarts';
 import { ThemeModule } from '../../@theme/theme.module';
-import { SettingsComponent } from './settings.component';
+import { MessagesComponent } from './messages.component';
 
 
 @NgModule({
@@ -10,7 +10,7 @@ import { SettingsComponent } from './settings.component';
     AngularEchartsModule,
   ],
   declarations: [
-    SettingsComponent,
+    MessagesComponent,
   ],
 })
-export class SettingsModule { }
+export class MessagesModule { }

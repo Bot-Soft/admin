@@ -10,11 +10,11 @@ declare let window: any;
 declare let FB: any;
 
 @Component({
-  selector: 'ngx-settings',
-  styleUrls: ['./settings.component.scss'],
-  templateUrl: './settings.component.html',
+  selector: 'ngx-messages',
+  styleUrls: ['./messages.component.scss'],
+  templateUrl: './messages.component.html',
 })
-export class SettingsComponent {
+export class MessagesComponent {
 
   textFields;
   constructor(private http: Http, private route: ActivatedRoute) {
@@ -52,7 +52,7 @@ export class SettingsComponent {
             allDataFields.forEach(dataField => {
 
               // Get all editable fields for Messages area
-              if (dataField.editable && dataField.area == "Settings") {
+              if (dataField.editable && dataField.area == "Messages") {
                 editableDataFields.push(dataField);
               }
             });

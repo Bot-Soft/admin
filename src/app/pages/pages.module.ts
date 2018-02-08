@@ -3,6 +3,8 @@ import { NgModule } from '@angular/core';
 import { PagesComponent } from './pages.component';
 import { LoginModule } from './login/login.module';
 import { CategoriesModule } from './categories/categories.module';
+import { MessagesModule } from './messages/messages.module';
+import { ImagesModule } from './images/images.module';
 import { ItemsModule } from './items/items.module';
 import { PeopleModule } from './people/people.module';
 import { SettingsModule } from './settings/settings.module';
@@ -19,6 +21,8 @@ const PAGES_COMPONENTS = [
     PagesRoutingModule,
     ThemeModule,
     CategoriesModule,
+    MessagesModule,
+    ImagesModule,
     SettingsModule,
     ItemsModule,
     PeopleModule,
