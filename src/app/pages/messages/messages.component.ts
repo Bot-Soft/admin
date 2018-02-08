@@ -57,7 +57,12 @@ export class MessagesComponent {
               }
             });
 
+            editableDataFields = editableDataFields.sort((a, b) => {
+              return a.order - b.order;
+            });
+
             console.log(editableDataFields);
+
             that.textFields = editableDataFields;
 
           });
