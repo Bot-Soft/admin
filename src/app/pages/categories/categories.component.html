@@ -1,5 +1,5 @@
 <div class="row">
   <div class="col-xxxl-3 col-md-6" *ngFor="let category of categories">
-    <ngx-categories-card [image]="category.image_url" [subtitle]="category.subtitle" [title]="category.title"></ngx-categories-card>
+    <ngx-categories-card items_url="#/bot/{{category.bot_id}}/items?category_id={{category.id}}" [image]="category.image_url" [subtitle]="category.subtitle" [title]="category.title"></ngx-categories-card>
   </div>
 </div>

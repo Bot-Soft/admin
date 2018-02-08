@@ -10,10 +10,10 @@ export class ItemsCardComponent implements OnDestroy {
 
   @Input() image: string;
   @Input() title: string;
-  @Input() text: string;
+  @Input() subtitle: string;
   @Input() price: string;
-  @Input() sellrate: string;
-  @Input() status: string;
+  // @Input() sellrate: string;
+  // @Input() status: string;
 
   currentTheme: string;
   themeSubscription: any;
