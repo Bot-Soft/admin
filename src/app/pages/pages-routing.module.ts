@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { PagesComponent } from './pages.component';
 import { CategoriesComponent } from './categories/categories.component';
+import { CreateCategoryComponent } from './create-category/create-category.component';
 import { MessagesComponent } from './messages/messages.component';
 import { ImagesComponent } from './images/images.component';
 import { ItemsComponent } from './items/items.component';
@@ -17,6 +18,9 @@ const routes: Routes = [{
   children: [{
     path: 'categories',
     component: CategoriesComponent,
+  }, {
+    path: 'category',
+    component: CreateCategoryComponent,
   }, {
     path: 'items',
     component: ItemsComponent,

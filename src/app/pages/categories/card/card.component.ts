@@ -1,6 +1,9 @@
-import { AfterViewInit, Component, Input, OnDestroy } from "@angular/core";
+import { AfterViewInit, Component, Input, OnDestroy, EventEmitter, Output } from "@angular/core";
 import { NbThemeService } from "@nebular/theme";
-
+import { Http } from "@angular/http";
+import { ActivatedRoute } from "@angular/router";
+declare let window: any;
+declare let FB: any;
 declare const echarts: any;
 
 @Component({
@@ -23,13 +26,13 @@ declare const echarts: any;
   <nb-card-footer>
   <nb-actions size="medium" fullWidth>
     <nb-action>
-      <a href="#">Edit</a>
+      <a href="#/bot/{{botId}}/category?category_id={{category_id}}">Edit</a>
     </nb-action>
     <nb-action>
-    <a href="{{items_url}}" style="color:#42db7c"><b>Items</b></a>
+    <a href="#/bot/{{botId}}/items?category_id={{category_id}}" style="color:#42db7c"><b>Items</b></a>
   </nb-action>
     <nb-action>
-    <a href="#">Delete</a>
+    <a class="pointer" (click)="delete()">Delete</a>
   </nb-action>
   </nb-actions>
 </nb-card-footer>
@@ -40,14 +43,62 @@ export class CategoriesCardComponent implements AfterViewInit, OnDestroy {
   @Input() title: string;
   @Input() subtitle: string;
   @Input() image: string;
-  @Input() items_url: string;
+  @Input() category_id: any;
+
+  @Output() messageEvent = new EventEmitter<string>();
 
   private value;
 
   option: any = {};
   themeSubscription: any;
+  botId;
+  accessToken;
 
-  constructor(private theme: NbThemeService) {}
+  constructor(private theme: NbThemeService, private http: Http, private route: ActivatedRoute) {
+    let that = this;
+    this.botId = this.route.parent.snapshot.params.id;
+
+    FB.getLoginStatus(function (response) {
+      if (response.status === "connected") {
+        // the user is logged in and has authenticated your
+        // app, and response.authResponse supplies
+        // the user's ID, a valid access token, a signed
+        // request, and the time the access token
+        // and signed request each expire
+        let uid = response.authResponse.userID;
+        that.accessToken = response.authResponse.accessToken;
+
+      } else if (response.status === "not_authorized") {
+        // the user is logged in to Facebook,
+        // but has not authenticated your app
+        window.location.replace("/#/auth");
+      } else {
+        // the user isn't logged in to Facebook.
+        window.location.replace("/#/auth");
+      }
+    });
+  }
+
+
+  delete() {
+
+    if (confirm("Are you sure you want to delete this category?")) {
+      this.http
+        .delete(
+        "https://3klcm8k5x0.execute-api.eu-central-1.amazonaws.com/latest/bots/" +
+        this.botId +
+        "/categories?id=" + this.category_id + "&access_token=" +
+        this.accessToken
+        )
+        .map(response => response.json())
+        .subscribe(res => {
+          this.messageEvent.emit(this.category_id)
+        });
+    } else {
+      // Do nothing!
+    }
+
+  }
 
   ngAfterViewInit() {
     // this.value = Math.floor((this.segment / this.total) * 100);
