@@ -8,7 +8,7 @@ import { ImagesModule } from './images/images.module';
 import { ItemsModule } from './items/items.module';
 import { PeopleModule } from './people/people.module';
 import { SettingsModule } from './settings/settings.module';
-import { PurchasesModule } from './purchases/purchases.module';
+import { OrdersModule } from './orders/orders.module';
 import { PagesRoutingModule } from './pages-routing.module';
 import { ThemeModule } from '../@theme/theme.module';
 
@@ -23,7 +23,7 @@ const PAGES_COMPONENTS = [
     ThemeModule,
     CategoriesModule,
     MessagesModule,
-    PurchasesModule,
+    OrdersModule,
     ImagesModule,
     SettingsModule,
     ItemsModule,

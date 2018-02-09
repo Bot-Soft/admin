@@ -9,7 +9,7 @@ import { ItemsComponent } from './items/items.component';
 import { PeopleComponent } from './people/people.component';
 import { LoginComponent } from './login/login.component';
 import { SettingsComponent } from './settings/settings.component';
-import { PurchasesComponent } from './purchases/purchases.component';
+import { OrdersComponent } from './orders/orders.component';
 
 const routes: Routes = [{
   path: '',
@@ -24,8 +24,8 @@ const routes: Routes = [{
     path: 'messages',
     component: MessagesComponent,
   }, {
-    path: 'purchases',
-    component: PurchasesComponent,
+    path: 'orders',
+    component: OrdersComponent,
   }, {
     path: 'images',
     component: ImagesComponent,
