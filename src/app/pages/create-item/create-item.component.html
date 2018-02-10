@@ -1,0 +1,76 @@
+<ngx-blank-layout>
+  <content>
+    <div>
+      <button class="btn btn-success btn-save" (click)="create()">Save</button>
+      <a href="#/bot/{{botId}}/items?category_id={{category_id}}" class="btn btn-secondary btn-save">Cancel</a>
+    </div>
+    <div class="row" *ngIf="item.id">
+      <div class="col-md-2">
+        <label>ID</label>
+      </div>
+      <div class="col-md-10">
+        <input class="disabled" type="text" size="100" [value]="item?.id || ''" disabled>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+        <label>Category</label>
+      </div>
+      <div class="col-md-10">
+        <select [ngModel]="selectedCategory" (ngModelChange)="selectedCategory = $event">
+          <option *ngFor="let category of categories" [value]="category.id" [selected]="selectedCategory == category.id"> {{category.title}} </option>
+        </select>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+        <label>Title</label>
+      </div>
+      <div class="col-md-10">
+        <input type="text" size="100" [ngModel]="item?.title" (ngModelChange)="item.title = $event" [value]="item?.title  || ''">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+        <label>Subtitle</label>
+      </div>
+      <div class="col-md-10">
+        <input type="text" size="100" [ngModel]="item?.subtitle" (ngModelChange)="item.subtitle = $event" [value]="item?.subtitle || ''">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+        <label>Price</label>
+      </div>
+      <div class="col-md-10">
+        <input type="text" size="10" [ngModel]="item?.price" (ngModelChange)="item.price = $event" [value]="item?.price || ''">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+        <label>Currency</label>
+      </div>
+      <div class="col-md-10">
+        <input type="text" size="2" [ngModel]="item?.currency" (ngModelChange)="item.currency = $event" [value]="item?.currency || ''">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+        <label>Order</label>
+      </div>
+      <div class="col-md-10">
+        <input type="text" size="2" [ngModel]="item?.order" (ngModelChange)="item.order = $event" [value]="item?.order || ''">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+        <label>Image URL</label>
+      </div>
+      <div class="col-md-10">
+        <input type="text" size="100" [ngModel]="item?.image_url" (ngModelChange)="item.image_url = $event" [value]="item?.image_url || ''">
+        <br />
+        <img *ngIf="item?.image_url" [src]="item?.image_url" height="200" width="382">
+      </div>
+    </div>
+  </content>
+</ngx-blank-layout>

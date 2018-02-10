@@ -7,6 +7,7 @@ import { CreateCategoryModule } from './create-category/create-category.module';
 import { MessagesModule } from './messages/messages.module';
 import { ImagesModule } from './images/images.module';
 import { ItemsModule } from './items/items.module';
+import { CreateItemModule } from './create-item/create-item.module';
 import { PeopleModule } from './people/people.module';
 import { SettingsModule } from './settings/settings.module';
 import { OrdersModule } from './orders/orders.module';
@@ -24,6 +25,7 @@ const PAGES_COMPONENTS = [
     ThemeModule,
     CategoriesModule,
     CreateCategoryModule,
+    CreateItemModule,
     MessagesModule,
     OrdersModule,
     ImagesModule,

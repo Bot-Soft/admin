@@ -7,6 +7,7 @@ import { CreateCategoryComponent } from './create-category/create-category.compo
 import { MessagesComponent } from './messages/messages.component';
 import { ImagesComponent } from './images/images.component';
 import { ItemsComponent } from './items/items.component';
+import { CreateItemComponent } from './create-item/create-item.component';
 import { PeopleComponent } from './people/people.component';
 import { LoginComponent } from './login/login.component';
 import { SettingsComponent } from './settings/settings.component';
@@ -21,6 +22,9 @@ const routes: Routes = [{
   }, {
     path: 'category',
     component: CreateCategoryComponent,
+  }, {
+    path: 'item',
+    component: CreateItemComponent,
   }, {
     path: 'items',
     component: ItemsComponent,

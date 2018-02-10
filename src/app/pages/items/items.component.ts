@@ -11,9 +11,10 @@ declare let FB: any;
 })
 export class ItemsComponent {
   items;
+  botId;
   constructor(private http: Http, private route: ActivatedRoute) {
     let that = this;
-    let botId = this.route.parent.snapshot.params.id;
+    this.botId = this.route.parent.snapshot.params.id;
     let categoryId = this.route.parent.snapshot.queryParams.category_id;
 
     FB.getLoginStatus(function (response) {
@@ -27,7 +28,7 @@ export class ItemsComponent {
         let accessToken = response.authResponse.accessToken;
 
         let url = "https://3klcm8k5x0.execute-api.eu-central-1.amazonaws.com/latest/bots/" +
-          botId +
+          that.botId +
           "/items?access_token=" +
           accessToken;
 
@@ -54,6 +55,12 @@ export class ItemsComponent {
         // the user isn't logged in to Facebook.
         window.location.replace("/#/auth");
       }
+    });
+  }
+
+  receiveDeleteMessage($event) {
+    this.items = this.items.filter((item)=>{
+      return item.id != $event;
     });
   }
 }
