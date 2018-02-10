@@ -51,7 +51,7 @@
       <div class="col-md-10">
         <input type="text" size="100" [ngModel]="category?.image_url" (ngModelChange)="category.image_url = $event" [value]="category?.image_url || ''">
         <br />
-        <img *ngIf="category?.image_url" [src]="category?.image_url" height="200" width="382">
+        <img *ngIf="category?.image_url" [src]="category?.image_url" height="auto" width="382">
       </div>
     </div>
   </content>

@@ -38,17 +38,22 @@ export class OrdersComponent {
           .map(response => response.json())
           .subscribe(res => {
             let _purchases = res;
-
-            _purchases = _purchases.map((purchase) => {
+            
+            _purchases.forEach((purchase) => {
+              debugger;
               purchase.price = 0;
-   
+
               purchase.details.forEach(detail => {
                 purchase.currency = detail.currency;
                 purchase.price += (detail.quantity * detail.price);
               });
-
-              that.purchases = _purchases;
             });
+
+            _purchases.sort((a, b) => {
+              return b.timestamp - a.timestamp;
+            });
+
+            that.purchases = _purchases;
           });
       } else if (response.status === "not_authorized") {
         // the user is logged in to Facebook,

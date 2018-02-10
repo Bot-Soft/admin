@@ -52,7 +52,7 @@ export class SettingsComponent {
             allDataFields.forEach(dataField => {
 
               // Get all editable fields for Messages area
-              if (dataField.editable && dataField.area == "Settings") {
+              if (dataField.editable && dataField.area == "settings") {
                 editableDataFields.push(dataField);
               }
             });

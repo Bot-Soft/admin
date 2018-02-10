@@ -52,7 +52,7 @@ export class ImagesComponent {
             allDataFields.forEach(dataField => {
 
               // Get all editable fields for Messages area
-              if (dataField.editable && dataField.area == "Images") {
+              if (dataField.editable && dataField.area == "images") {
                 editableDataFields.push(dataField);
               }
             });

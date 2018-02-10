@@ -6,7 +6,7 @@ import { NbThemeService } from '@nebular/theme';
   styleUrls: ['./card.component.scss'],
   templateUrl: './card.component.html',
 })
-export class OrdersCardComponent implements OnDestroy {
+export class OrdersCardComponent {
 
   @Input() image: string;
   @Input() title: string;
@@ -14,18 +14,11 @@ export class OrdersCardComponent implements OnDestroy {
   @Input() price: string;
   @Input() avatar: string;
   @Input() name: string;
-  // @Input() status: string;
 
   currentTheme: string;
   themeSubscription: any;
 
-  constructor(private themeService: NbThemeService) {
-    this.themeSubscription = this.themeService.getJsTheme().subscribe(theme => {
-      this.currentTheme = theme.name;
-    });
-  }
+  constructor() {
 
-  ngOnDestroy() {
-    this.themeSubscription.unsubscribe();
   }
 }
