@@ -17,9 +17,7 @@
         <label>Category</label>
       </div>
       <div class="col-md-10">
-        <select [ngModel]="selectedCategory" (ngModelChange)="selectedCategory = $event">
-          <option *ngFor="let category of categories" [value]="category.id" [selected]="selectedCategory == category.id"> {{category.title}} </option>
-        </select>
+          <button class="btn {{selectedCategory == category.id?'btn-success':'btn-secondary'}} btn-category" (click)="onCategoryChange(category)" *ngFor="let category of categories">{{category?.title}}</button>
       </div>
     </div>
     <div class="row">

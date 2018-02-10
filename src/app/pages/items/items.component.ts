@@ -12,10 +12,11 @@ declare let FB: any;
 export class ItemsComponent {
   items;
   botId;
+  categoryId;
   constructor(private http: Http, private route: ActivatedRoute) {
     let that = this;
     this.botId = this.route.parent.snapshot.params.id;
-    let categoryId = this.route.parent.snapshot.queryParams.category_id;
+    this.categoryId = this.route.parent.snapshot.queryParams.category_id;
 
     FB.getLoginStatus(function (response) {
       if (response.status === "connected") {
@@ -32,8 +33,8 @@ export class ItemsComponent {
           "/items?access_token=" +
           accessToken;
 
-        if (categoryId) {
-          url += "&category_id=" + categoryId;
+        if (that.categoryId) {
+          url += "&category_id=" + that.categoryId;
         }
         that.http
           .get(

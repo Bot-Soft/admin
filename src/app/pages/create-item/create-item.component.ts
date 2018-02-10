@@ -51,11 +51,14 @@ export class CreateItemComponent {
           .subscribe(res => {
             that.categories = res;
             if (that.category_id) {
-              that.selectedCategory = that.categories.find((category) => {
-                return category.id == that.category_id;
+              that.categories = that.categories.map((category) => {
+                if(category.id == that.category_id){
+                  that.selectedCategory = category.id;
+                }
+                return category;
               });
             } else {
-              that.selectedCategory = that.categories[0];
+              that.selectedCategory = that.categories[0].id;
             }
 
           });
@@ -92,10 +95,12 @@ export class CreateItemComponent {
     });
   }
 
+  onCategoryChange(category){
+    this.selectedCategory = category.id;
+  }
+
   create() {
-    this.item["category_id"] = this.categories.find((category) => {
-      return category.id == this.selectedCategory;
-    })["id"];
+    this.item["category_id"] = this.selectedCategory;
 
     if (!this.item["title"]) {
       alert("Category title is required.");
