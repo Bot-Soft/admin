@@ -39,7 +39,7 @@ export class PagesComponent {
           .map(response => response.json()).subscribe(res => {
             let menuItems = [];
 
-            res.blocks.areas.forEach(element => {
+            res.blocks.template.areas.forEach(element => {
               menuItems.push(element);
             });
 
