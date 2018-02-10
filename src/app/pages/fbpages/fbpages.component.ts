@@ -68,7 +68,7 @@ export class FbPagesComponent implements OnInit, OnDestroy {
     });
   }
 
-  setup(pageId, pageAccessToken) {
+  setup(pageId, pageName, pageAccessToken) {
     console.log(pageId);
     console.log(pageAccessToken);
 
@@ -77,11 +77,11 @@ export class FbPagesComponent implements OnInit, OnDestroy {
         page_id: pageId,
         access_token: pageAccessToken,
         user_id: response.id,
-        name: response.name
+        name: pageName
       }).subscribe(
         res => {
           console.log(res);
-          window.location.replace("/#/categories");
+          window.location.replace("#/bot/"+pageId+"/categories");
         },
         err => {
           console.log(err);
