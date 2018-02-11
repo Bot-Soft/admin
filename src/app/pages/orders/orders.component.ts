@@ -40,7 +40,6 @@ export class OrdersComponent {
             let _purchases = res;
             
             _purchases.forEach((purchase) => {
-              debugger;
               purchase.price = 0;
 
               purchase.details.forEach(detail => {
