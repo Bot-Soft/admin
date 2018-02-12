@@ -17,7 +17,14 @@ declare let FB: any;
 })
 export class CreateCategoryComponent {
   botId;
-  category = {};
+  category = {
+    button_text: "",
+    title: "",
+    order: "",
+    image_url: "",
+    subtitle: "",
+    id: ""
+  };
   category_id;
   accessToken;
   constructor(private http: Http, private route: ActivatedRoute) {

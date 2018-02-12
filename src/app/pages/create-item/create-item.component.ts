@@ -18,7 +18,15 @@ declare let FB: any;
 })
 export class CreateItemComponent {
   botId;
-  item = {};
+  item = {
+    subtitle: "",
+    title: "",
+    price: "",
+    currency: "",
+    order: "",
+    image_url: "",
+    id: ""
+  };
   categories = [];
   selectedCategory = {};
   category_id;
