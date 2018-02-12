@@ -64,4 +64,10 @@ export class OrdersComponent {
       }
     });
   }
+
+  receiveStatusUpdatedMessage($event) {
+    this.purchases = this.purchases.filter((purchase)=>{
+      return purchase.id != $event;
+    });
+  }
 }

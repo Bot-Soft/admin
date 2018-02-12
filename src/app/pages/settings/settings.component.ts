@@ -17,9 +17,12 @@ declare let FB: any;
 export class SettingsComponent {
 
   textFields;
+  accessToken;
+  botId;
+  updatedTextFields = {};
   constructor(private http: Http, private route: ActivatedRoute) {
     let that = this;
-    let botId = this.route.parent.snapshot.params.id;
+    this.botId = this.route.parent.snapshot.params.id;
 
     FB.getLoginStatus(function (response) {
       if (response.status === "connected") {
@@ -29,14 +32,14 @@ export class SettingsComponent {
         // request, and the time the access token
         // and signed request each expire
         let uid = response.authResponse.userID;
-        let accessToken = response.authResponse.accessToken;
+        that.accessToken = response.authResponse.accessToken;
 
         that.http
           .get(
           "https://3klcm8k5x0.execute-api.eu-central-1.amazonaws.com/latest/bots/" +
-          botId +
+          that.botId +
           "?access_token=" +
-          accessToken
+          that.accessToken
           )
           .map(response => response.json())
           .subscribe(res => {
@@ -57,7 +60,10 @@ export class SettingsComponent {
               }
             });
 
-            console.log(editableDataFields);
+            editableDataFields = editableDataFields.sort((a, b) => {
+              return a.order - b.order;
+            });
+
             that.textFields = editableDataFields;
 
           });
@@ -70,5 +76,26 @@ export class SettingsComponent {
         window.location.replace("/#/auth");
       }
     });
+  }
+
+  save(){
+    this.http
+          .post(
+          "https://3klcm8k5x0.execute-api.eu-central-1.amazonaws.com/latest/bots/" +
+          this.botId +
+          "/data?access_token=" +
+          this.accessToken,
+          this.updatedTextFields
+          )
+          .map(response => response.json())
+          .subscribe(res => {
+            
+
+          });
+  }
+
+  onModelChanged(textField, $event){
+    textField.value = $event
+    this.updatedTextFields[textField.name] = textField.value;
   }
 }
