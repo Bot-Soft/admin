@@ -5,6 +5,7 @@ import { FbPagesService } from '../../@core/data/fbpages.service';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 import { ActivatedRoute } from '@angular/router';
+import config from "../../config/config.json";
 
 declare let window: any;
 declare let FB: any;
@@ -33,7 +34,7 @@ export class ImagesComponent {
 
         that.http
           .get(
-          "https://3klcm8k5x0.execute-api.eu-central-1.amazonaws.com/latest/bots/" +
+            config.url + "/bots/" +
           botId +
           "?access_token=" +
           accessToken

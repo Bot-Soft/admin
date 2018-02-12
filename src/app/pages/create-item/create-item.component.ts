@@ -6,6 +6,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 import { ActivatedRoute } from '@angular/router';
 import { debuglog } from 'util';
+import config from "../../config/config.json";
 
 declare let window: any;
 declare let FB: any;
@@ -42,7 +43,7 @@ export class CreateItemComponent {
 
         that.http
           .get(
-          "https://3klcm8k5x0.execute-api.eu-central-1.amazonaws.com/latest/bots/" +
+          config.url + "/bots/" +
           that.botId +
           "/categories?access_token=" +
           that.accessToken
@@ -66,7 +67,7 @@ export class CreateItemComponent {
         if (that.item_id) {
           that.http
             .get(
-            "https://3klcm8k5x0.execute-api.eu-central-1.amazonaws.com/latest/bots/" +
+            config.url + "/bots/" +
             that.botId +
             "/items?access_token=" +
             that.accessToken
@@ -134,7 +135,7 @@ export class CreateItemComponent {
 
     this.http
       .post(
-      "https://3klcm8k5x0.execute-api.eu-central-1.amazonaws.com/latest/bots/" +
+      config.url + "/bots/" +
       this.botId +
       "/items?access_token=" +
       this.accessToken,

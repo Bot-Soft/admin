@@ -4,6 +4,7 @@ import { Http } from '@angular/http';
 import { ActivatedRoute } from '@angular/router';
 declare let window: any;
 declare let FB: any;
+import config from "../../../config/config.json";
 
 @Component({
   selector: 'ngx-orders-card',
@@ -56,7 +57,7 @@ export class OrdersCardComponent {
     if (confirm("Are you ready with this order?")) {
       this.http
         .post(
-        "https://3klcm8k5x0.execute-api.eu-central-1.amazonaws.com/latest/bots/" +
+        config.url + "/bots/" +
         this.botId +
         "/purchases?access_token=" +
         this.accessToken,

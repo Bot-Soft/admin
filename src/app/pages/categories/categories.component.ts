@@ -1,6 +1,7 @@
 import { Component } from "@angular/core";
 import { Http } from "@angular/http";
 import { ActivatedRoute } from "@angular/router";
+import config from "../../config/config.json";
 declare let window: any;
 declare let FB: any;
 
@@ -29,7 +30,7 @@ export class CategoriesComponent {
 
         that.http
           .get(
-          "https://3klcm8k5x0.execute-api.eu-central-1.amazonaws.com/latest/bots/" +
+          config.url + "/bots/" +
           that.botId +
           "/categories?access_token=" +
           that.accessToken

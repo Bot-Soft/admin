@@ -5,6 +5,7 @@ import { Http } from '@angular/http';
 import { ActivatedRoute } from '@angular/router';
 declare let window: any;
 declare let FB: any;
+import config from "../config/config.json";
 
 @Component({
   selector: 'ngx-pages',
@@ -35,7 +36,7 @@ export class PagesComponent {
         let accessToken = response.authResponse.accessToken;
 
         let botId = that.route.snapshot.params.id;
-        that.http.get('https://3klcm8k5x0.execute-api.eu-central-1.amazonaws.com/latest/bots/' + botId + '/?access_token=' + accessToken)
+        that.http.get(config.url + '/bots/' + botId + '/?access_token=' + accessToken)
           .map(response => response.json()).subscribe(res => {
             let menuItems = [];
 

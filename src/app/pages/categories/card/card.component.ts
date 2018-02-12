@@ -5,6 +5,7 @@ import { ActivatedRoute } from "@angular/router";
 declare let window: any;
 declare let FB: any;
 declare const echarts: any;
+import config from "../../../config/config.json";
 
 @Component({
   selector: "ngx-categories-card",
@@ -85,7 +86,7 @@ export class CategoriesCardComponent implements AfterViewInit, OnDestroy {
     if (confirm("Are you sure you want to delete this category?")) {
       this.http
         .delete(
-        "https://3klcm8k5x0.execute-api.eu-central-1.amazonaws.com/latest/bots/" +
+        config.url + "/bots/" +
         this.botId +
         "/categories?id=" + this.category_id + "&access_token=" +
         this.accessToken

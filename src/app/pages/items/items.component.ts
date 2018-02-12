@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Http } from '@angular/http';
 declare let window: any;
 declare let FB: any;
+import config from "../../config/config.json";
 
 @Component({
   selector: 'ngx-categories',
@@ -28,7 +29,7 @@ export class ItemsComponent {
         let uid = response.authResponse.userID;
         let accessToken = response.authResponse.accessToken;
 
-        let url = "https://3klcm8k5x0.execute-api.eu-central-1.amazonaws.com/latest/bots/" +
+        let url = config.url + "/bots/" +
           that.botId +
           "/items?access_token=" +
           accessToken;

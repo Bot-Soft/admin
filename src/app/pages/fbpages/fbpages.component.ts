@@ -4,6 +4,7 @@ import { Http } from '@angular/http';
 import { FbPagesService } from '../../@core/data/fbpages.service';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
+import config from "../../config/config.json";
 
 declare let window: any;
 declare let FB: any;
@@ -50,7 +51,7 @@ export class FbPagesComponent implements OnInit, OnDestroy {
         console.log("UID: " + uid);
         console.log("accessToken: " + accessToken);
 
-        that.http.get('https://3klcm8k5x0.execute-api.eu-central-1.amazonaws.com/latest/pages?access_token=' + accessToken)
+        that.http.get(config.url + '/pages?access_token=' + accessToken)
           .map(response => response.json()).subscribe(res => {
             that.fbpages = res;
           }
@@ -73,7 +74,7 @@ export class FbPagesComponent implements OnInit, OnDestroy {
     console.log(pageAccessToken);
 
     FB.api("/me", (response) => {
-      this.http.post('https://3klcm8k5x0.execute-api.eu-central-1.amazonaws.com/latest/setup', {
+      this.http.post(config.url + '/setup', {
         page_id: pageId,
         access_token: pageAccessToken,
         user_id: response.id,

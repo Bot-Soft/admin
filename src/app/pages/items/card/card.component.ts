@@ -4,6 +4,7 @@ import { Http } from '@angular/http';
 import { ActivatedRoute } from '@angular/router';
 declare let window: any;
 declare let FB: any;
+import config from "../../../config/config.json";
 
 @Component({
   selector: 'ngx-items-card',
@@ -56,7 +57,7 @@ export class ItemsCardComponent {
     if (confirm("Are you sure you want to delete this item?")) {
       this.http
         .delete(
-        "https://3klcm8k5x0.execute-api.eu-central-1.amazonaws.com/latest/bots/" +
+        config.url + "/bots/" +
         this.botId +
         "/item?id=" + this.item_id + "&access_token=" +
         this.accessToken
