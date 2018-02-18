@@ -36,9 +36,6 @@ export class AppComponent implements OnInit {
         let uid = response.authResponse.userID;
         let accessToken = response.authResponse.accessToken;
 
-        console.log("UID: " + uid);
-        console.log("accessToken: " + accessToken);
-
       } else if (response.status === "not_authorized") {
         // the user is logged in to Facebook,
         // but has not authenticated your app

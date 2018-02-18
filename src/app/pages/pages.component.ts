@@ -25,6 +25,7 @@ export class PagesComponent {
 
     let that = this;
     
+    
     FB.getLoginStatus(function (response) {
       if (response.status === "connected") {
         // the user is logged in and has authenticated your

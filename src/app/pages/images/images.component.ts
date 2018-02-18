@@ -58,7 +58,6 @@ export class ImagesComponent {
               }
             });
 
-            console.log(editableDataFields);
             that.textFields = editableDataFields;
 
           });

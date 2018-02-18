@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { NbThemeService, NbMediaBreakpoint, NbMediaBreakpointsService } from '@nebular/theme';
+import { NbThemeService, NbMediaBreakpoint, NbMediaBreakpointsService, NbSpinnerService } from '@nebular/theme';
 import { Http } from '@angular/http';
 import { FbPagesService } from '../../@core/data/fbpages.service';
 import { Observable } from 'rxjs/Observable';
@@ -25,18 +25,19 @@ export class FbPagesComponent implements OnInit, OnDestroy {
   constructor(private themeService: NbThemeService,
     private breakpointService: NbMediaBreakpointsService,
     private fbPagesService: FbPagesService,
-    private http: Http) {
+    private http: Http,
+    private spinnerService: NbSpinnerService) {
 
     this.breakpoints = this.breakpointService.getBreakpointsMap();
     this.themeSubscription = this.themeService.onMediaQueryChange()
       .subscribe(([oldValue, newValue]) => {
         this.breakpoint = newValue;
       });
-
   }
 
   ngOnInit() {
     let that = this;
+
 
     FB.getLoginStatus(function (response) {
       if (response.status === "connected") {
@@ -48,14 +49,13 @@ export class FbPagesComponent implements OnInit, OnDestroy {
         let uid = response.authResponse.userID;
         let accessToken = response.authResponse.accessToken;
 
-        console.log("UID: " + uid);
-        console.log("accessToken: " + accessToken);
-
         that.http.get(config.url + '/pages?access_token=' + accessToken)
           .map(response => response.json()).subscribe(res => {
             that.fbpages = res;
           }
           );
+
+
 
       } else if (response.status === "not_authorized") {
         // the user is logged in to Facebook,
@@ -70,26 +70,28 @@ export class FbPagesComponent implements OnInit, OnDestroy {
   }
 
   setup(pageId, pageName, pageAccessToken) {
-    console.log(pageId);
-    console.log(pageAccessToken);
 
-    FB.api("/me", (response) => {
-      this.http.post(config.url + '/setup', {
-        page_id: pageId,
-        access_token: pageAccessToken,
-        user_id: response.id,
-        name: pageName
-      }).subscribe(
-        res => {
-          console.log(res);
-          window.location.replace("#/bot/"+pageId+"/categories");
-        },
-        err => {
-          console.log(err);
-        }
-        );
-    });
+    this.spinnerService.registerLoader(new Promise((resolve, reject) => {
 
+      FB.api("/me", (response) => {
+        this.http.post(config.url + '/setup', {
+          page_id: pageId,
+          access_token: pageAccessToken,
+          user_id: response.id,
+          name: pageName
+        }).subscribe(
+          res => {
+            resolve();
+            window.location.replace("#/bot/" + pageId + "/categories");
+          },
+          err => {
+            reject();
+          }
+          );
+      });
+    }));
+
+    this.spinnerService.load();
   }
 
   ngOnDestroy() {
