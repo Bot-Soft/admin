@@ -42,6 +42,7 @@
       height : calc(#{nb-theme(sidebar-height)} - #{nb-theme(header-height)} - #{nb-theme(sidebar-header-gap)}) !important;
       // border-top-right-radius: nb-theme(radius);
       border-top-right-radius: 0;
+      border-bottom-right-radius: nb-theme(radius);
     }
     /deep/ nb-sidebar-header {
       padding-bottom: 0.5rem;
