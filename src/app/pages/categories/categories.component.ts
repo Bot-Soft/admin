@@ -53,6 +53,7 @@ export class CategoriesComponent {
                 backdrop: 'static',
                 container: 'nb-layout',
               });
+              activeModal.componentInstance.pageId = that.botId;
             }
 
           });

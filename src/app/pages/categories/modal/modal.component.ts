@@ -7,6 +7,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 })
 export class ModalComponent {
 
+  pageId: string;
   constructor(private activeModal: NgbActiveModal) { }
 
   closeModal() {
