@@ -47,6 +47,8 @@ export class OrdersComponent {
                 purchase.currency = detail.currency;
                 purchase.price += (detail.quantity * detail.price);
               });
+
+              purchase.price = Number((purchase.price).toFixed(2))
             });
 
             _purchases.sort((a, b) => {
