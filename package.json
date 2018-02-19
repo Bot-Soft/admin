@@ -12,11 +12,11 @@
   "scripts": {
     "ng": "ng",
     "conventional-changelog": "conventional-changelog",
-    "start": "ng serve",
+    "start": "cp src/app/config/config.test.json src/app/config/config.json && ng serve",
     "start:hmr": "ng serve --hmr",
     "start:aot": "ng serve --aot",
     "build": "rimraf dist && rimraf docs && ng build",
-    "build:prod": "npm run build -- --prod",
+    "build:prod": "cp src/app/config/config.live.json src/app/config/config.json && npm run build -- --prod",
     "build:prod:aot": "npm run build:prod -- --aot",
     "build:ci": "npm-run-all -p -r build:prod build:prod:aot",
     "test": "ng test -sr",
