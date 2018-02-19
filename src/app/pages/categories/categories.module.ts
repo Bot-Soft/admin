@@ -3,6 +3,7 @@ import { AngularEchartsModule } from 'ngx-echarts';
 import { ThemeModule } from '../../@theme/theme.module';
 import { CategoriesComponent } from './categories.component';
 import { CategoriesCardComponent } from './card/card.component';
+import { ModalComponent } from './modal/modal.component';
 
 
 @NgModule({
@@ -13,6 +14,10 @@ import { CategoriesCardComponent } from './card/card.component';
   declarations: [
     CategoriesComponent,
     CategoriesCardComponent,
+    ModalComponent
+  ],
+  entryComponents: [
+    ModalComponent,
   ],
 })
 export class CategoriesModule { }

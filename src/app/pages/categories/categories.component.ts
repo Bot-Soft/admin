@@ -2,6 +2,8 @@ import { Component } from "@angular/core";
 import { Http } from "@angular/http";
 import { ActivatedRoute } from "@angular/router";
 import config from "../../config/config.json";
+import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
+import { ModalComponent } from "./modal/modal.component";
 declare let window: any;
 declare let FB: any;
 
@@ -14,9 +16,11 @@ export class CategoriesComponent {
   categories;
   botId;
   accessToken;
-  constructor(private http: Http, private route: ActivatedRoute) {
+  isInitial;
+  constructor(private http: Http, private route: ActivatedRoute, private modalService: NgbModal) {
     let that = this;
     this.botId = this.route.parent.snapshot.params.id;
+    this.isInitial = this.route.parent.snapshot.queryParams.initial;
 
     FB.getLoginStatus(function (response) {
       if (response.status === "connected") {
@@ -42,6 +46,15 @@ export class CategoriesComponent {
             that.categories = _categories.sort((a, b) => {
               return a.order - b.order;
             });
+
+            if(that.isInitial){
+              const activeModal = that.modalService.open(ModalComponent, {
+                size: 'lg',
+                backdrop: 'static',
+                container: 'nb-layout',
+              });
+            }
+
           });
       } else if (response.status === "not_authorized") {
         // the user is logged in to Facebook,

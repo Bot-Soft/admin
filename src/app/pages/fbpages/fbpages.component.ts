@@ -82,7 +82,7 @@ export class FbPagesComponent implements OnInit, OnDestroy {
         }).subscribe(
           res => {
             resolve();
-            window.location.replace("#/bot/" + pageId + "/categories");
+            window.location.replace("#/bot/" + pageId + "/categories?initial=true");
           },
           err => {
             reject();
