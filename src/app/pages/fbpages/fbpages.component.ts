@@ -5,6 +5,7 @@ import { FbPagesService } from '../../@core/data/fbpages.service';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 import config from "../../config/config.json";
+import { ActivatedRoute } from '@angular/router';
 
 declare let window: any;
 declare let FB: any;
@@ -21,11 +22,12 @@ export class FbPagesComponent implements OnInit, OnDestroy {
   breakpoint: NbMediaBreakpoint;
   breakpoints: any;
   themeSubscription: any;
+  templateId: string;
 
   constructor(private themeService: NbThemeService,
     private breakpointService: NbMediaBreakpointsService,
     private fbPagesService: FbPagesService,
-    private http: Http,
+    private http: Http,private route: ActivatedRoute,
     private spinnerService: NbSpinnerService) {
 
     this.breakpoints = this.breakpointService.getBreakpointsMap();
@@ -33,6 +35,8 @@ export class FbPagesComponent implements OnInit, OnDestroy {
       .subscribe(([oldValue, newValue]) => {
         this.breakpoint = newValue;
       });
+
+      this.templateId = this.route.snapshot.queryParams.template_id;
   }
 
   ngOnInit() {
@@ -73,8 +77,16 @@ export class FbPagesComponent implements OnInit, OnDestroy {
 
     this.spinnerService.registerLoader(new Promise((resolve, reject) => {
 
+      let endpoint = config.url + '/setup';
+
+      if(this.templateId){
+        endpoint += '?template_id=' + this.templateId;
+      }
+
+      debugger;
+
       FB.api("/me", (response) => {
-        this.http.post(config.url + '/setup', {
+        this.http.post(endpoint, {
           page_id: pageId,
           access_token: pageAccessToken,
           user_id: response.id,

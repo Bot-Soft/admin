@@ -1,23 +1,24 @@
 <ngx-blank-layout>
   <content>
     <div>
-      <button class="btn btn-success btn-save" (click)="create()">Save</button>
+      <button class="btn btn-success btn-save" (click)="save()">Save</button>
       <a href="#/bot/{{botId}}/items?category_id={{category_id}}" class="btn btn-secondary btn-save">Cancel</a>
     </div>
-    <div class="row" *ngIf="item.id">
+    <!-- <div class="row" *ngIf="item.id">
       <div class="col-md-2">
         <label>ID</label>
       </div>
       <div class="col-md-10">
         <input class="disabled" type="text" size="100" [value]="item?.id || ''" disabled>
       </div>
-    </div>
+    </div> -->
     <div class="row">
       <div class="col-md-2">
         <label>Category</label>
       </div>
       <div class="col-md-10">
-          <button class="btn {{selectedCategory == category.id?'btn-success':'btn-secondary'}} btn-category" (click)="onCategoryChange(category)" *ngFor="let category of categories">{{category?.title}}</button>
+        <button class="btn {{selectedCategory == category.id?'btn-info':'btn-secondary'}} btn-category" (click)="onCategoryChange(category)"
+          *ngFor="let category of categories">{{category?.title}}</button>
       </div>
     </div>
     <div class="row">
@@ -38,6 +39,16 @@
     </div>
     <div class="row">
       <div class="col-md-2">
+        <label>Image URL</label>
+      </div>
+      <div class="col-md-10">
+        <input type="text" size="100" [ngModel]="item?.image_url" (ngModelChange)="item.image_url = $event" [value]="item?.image_url || ''">
+        <br />
+        <img *ngIf="item?.image_url" [src]="item?.image_url" height="auto" width="382">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
         <label>Price</label>
       </div>
       <div class="col-md-10">
@@ -52,22 +63,34 @@
         <input type="text" size="2" [ngModel]="item?.currency" (ngModelChange)="item.currency = $event" [value]="item?.currency || ''">
       </div>
     </div>
-    <div class="row">
+    <!-- <div class="row">
       <div class="col-md-2">
         <label>Order</label>
       </div>
       <div class="col-md-10">
         <input type="text" size="2" [ngModel]="item?.order" (ngModelChange)="item.order = $event" [value]="item?.order || ''">
       </div>
-    </div>
+    </div> -->
     <div class="row">
       <div class="col-md-2">
-        <label>Image URL</label>
+        <label>Button</label>
       </div>
-      <div class="col-md-10">
-        <input type="text" size="100" [ngModel]="item?.image_url" (ngModelChange)="item.image_url = $event" [value]="item?.image_url || ''">
-        <br />
-        <img *ngIf="item?.image_url" [src]="item?.image_url" height="auto" width="382">
+      <div [(ngModel)]="buttonType" (ngModelChange)="onChangeButtonType($event)" ngbRadioGroup class="btn-divided-group btn-outline-divided-group btn-group-full-width col-md-10">
+        <label ngbButtonLabel class="btn btn-outline-info col-md-2">
+          <input ngbButton type="radio" value="web_url"> URL
+        </label>
+        <label ngbButtonLabel class="btn btn-outline-info col-md-2">
+          <input ngbButton type="radio" value="phone_number"> Phone Call
+        </label>
+
+      </div>
+      <div *ngIf="buttonType == 'web_url'" class="col-md-10 offset-md-2">
+        <input type="text" class="col-md-2" size="100" [ngModel]="item.buttons[0]?.title" (ngModelChange)="item.buttons[0].title = $event" [value]="item.buttons[0]?.title || ''" placeholder="Your Site">
+        <input type="text" class="col-md-8" style="margin-left: 10px;" size="100" [ngModel]="item.buttons[0]?.url" (ngModelChange)="item.buttons[0].url = $event" [value]="button?.url || ''" placeholder="http://yoursite.com">
+      </div>
+      <div *ngIf="buttonType == 'phone_number'" class="col-md-10 offset-md-2">
+        <input type="text" class="col-md-2" size="100" [ngModel]="item.buttons[0]?.title" (ngModelChange)="item.buttons[0].title = $event" [value]="item.buttons[0]?.title|| ''" placeholder="Phone Number">
+        <input type="text" class="col-md-8" style="margin-left: 10px;" size="100" [ngModel]="item.buttons[0]?.payload" (ngModelChange)="item.buttons[0].payload = $event" [value]="item.buttons[0]?.payload || ''" placeholder="+0123456789">
       </div>
     </div>
   </content>

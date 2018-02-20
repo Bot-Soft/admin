@@ -25,12 +25,14 @@ export class CreateItemComponent {
     currency: "",
     order: "",
     image_url: "",
-    id: ""
+    id: "",
+    buttons: [{type: "", payload: "", url: ""}]
   };
   categories = [];
   selectedCategory = {};
   category_id;
   item_id;
+  buttonType: string;
   accessToken;
   constructor(private http: Http, private route: ActivatedRoute) {
     let that = this;
@@ -51,17 +53,17 @@ export class CreateItemComponent {
 
         that.http
           .get(
-          config.url + "/bots/" +
-          that.botId +
-          "/categories?access_token=" +
-          that.accessToken
+            config.url + "/bots/" +
+            that.botId +
+            "/categories?access_token=" +
+            that.accessToken
           )
           .map(response => response.json())
           .subscribe(res => {
             that.categories = res;
             if (that.category_id) {
               that.categories = that.categories.map((category) => {
-                if(category.id == that.category_id){
+                if (category.id == that.category_id) {
                   that.selectedCategory = category.id;
                 }
                 return category;
@@ -75,10 +77,10 @@ export class CreateItemComponent {
         if (that.item_id) {
           that.http
             .get(
-            config.url + "/bots/" +
-            that.botId +
-            "/items?access_token=" +
-            that.accessToken
+              config.url + "/bots/" +
+              that.botId +
+              "/items?access_token=" +
+              that.accessToken
             )
             .map(response => response.json())
             .subscribe(res => {
@@ -87,6 +89,12 @@ export class CreateItemComponent {
               });
 
               that.item = currentItem;
+
+              if(that.item.buttons && that.item.buttons[0]){
+                that.buttonType = that.item.buttons[0].type;
+              }else {
+                that.item.buttons = [];
+              }
 
             });
         }
@@ -104,11 +112,21 @@ export class CreateItemComponent {
     });
   }
 
-  onCategoryChange(category){
+  onCategoryChange(category) {
     this.selectedCategory = category.id;
   }
 
-  create() {
+  onChangeButtonType($event) {
+    if(this.item.buttons && this.item.buttons.length > 0){
+      delete this.item.buttons[0].url;
+      delete this.item.buttons[0].payload;
+    }
+
+    this.buttonType = $event;
+
+  }
+
+  save() {
     this.item["category_id"] = this.selectedCategory;
 
     if (!this.item["title"]) {
@@ -141,13 +159,22 @@ export class CreateItemComponent {
       return;
     }
 
+    if(this.item.buttons && this.item.buttons.length > 0 && Object.keys(this.item.buttons[0]).length != 3){
+      alert("Button is not configured properly.");
+      return;
+    }
+
+    if(this.item.buttons.length == 0){
+      delete this.item.buttons;
+    }
+
     this.http
       .post(
-      config.url + "/bots/" +
-      this.botId +
-      "/items?access_token=" +
-      this.accessToken,
-      this.item
+        config.url + "/bots/" +
+        this.botId +
+        "/items?access_token=" +
+        this.accessToken,
+        this.item
       )
       .map(response => response.json())
       .subscribe(res => {
