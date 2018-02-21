@@ -164,10 +164,6 @@ export class CreateItemComponent {
       return;
     }
 
-    if(this.item.buttons.length == 0){
-      delete this.item.buttons;
-    }
-
     this.http
       .post(
         config.url + "/bots/" +
