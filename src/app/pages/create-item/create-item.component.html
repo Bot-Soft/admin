@@ -71,26 +71,32 @@
         <input type="text" size="2" [ngModel]="item?.order" (ngModelChange)="item.order = $event" [value]="item?.order || ''">
       </div>
     </div> -->
-    <div class="row">
-      <div class="col-md-2">
-        <label>Button</label>
-      </div>
-      <div [(ngModel)]="buttonType" (ngModelChange)="onChangeButtonType($event)" ngbRadioGroup class="btn-divided-group btn-outline-divided-group btn-group-full-width col-md-10">
-        <label ngbButtonLabel class="btn btn-outline-info col-md-2">
-          <input ngbButton type="radio" value="web_url"> URL
-        </label>
-        <label ngbButtonLabel class="btn btn-outline-info col-md-2">
-          <input ngbButton type="radio" value="phone_number"> Phone Call
-        </label>
+    <div *ngFor="let button of item.buttons" >
+      <div *ngIf="!button.type || button.type == 'web_url' || button.type == 'phone_number'" class="row">
+        <div class="col-md-2">
+          <label>Button</label>
+        </div>
+        <div [(ngModel)]="button.type" (ngModelChange)="onChangeButtonType($event)" ngbRadioGroup class="btn-divided-group btn-outline-divided-group btn-group-full-width col-md-10">
+          <label ngbButtonLabel class="btn btn-outline-info col-md-2">
+            <input ngbButton type="radio" value="web_url"> URL
+          </label>
+          <label ngbButtonLabel class="btn btn-outline-info col-md-2">
+            <input ngbButton type="radio" value="phone_number"> Phone Call
+          </label>
 
-      </div>
-      <div *ngIf="buttonType == 'web_url'" class="col-md-10 offset-md-2">
-        <input type="text" class="col-md-2" size="100" [ngModel]="item.buttons[0]?.title" (ngModelChange)="item.buttons[0].title = $event" [value]="item.buttons[0]?.title || ''" placeholder="Your Site">
-        <input type="text" class="col-md-8" style="margin-left: 10px;" size="100" [ngModel]="item.buttons[0]?.url" (ngModelChange)="item.buttons[0].url = $event" [value]="button?.url || ''" placeholder="http://yoursite.com">
-      </div>
-      <div *ngIf="buttonType == 'phone_number'" class="col-md-10 offset-md-2">
-        <input type="text" class="col-md-2" size="100" [ngModel]="item.buttons[0]?.title" (ngModelChange)="item.buttons[0].title = $event" [value]="item.buttons[0]?.title|| ''" placeholder="Phone Number">
-        <input type="text" class="col-md-8" style="margin-left: 10px;" size="100" [ngModel]="item.buttons[0]?.payload" (ngModelChange)="item.buttons[0].payload = $event" [value]="item.buttons[0]?.payload || ''" placeholder="+0123456789">
+        </div>
+        <div *ngIf="button.type == 'web_url'" class="col-md-10 offset-md-2">
+          <input type="text" class="col-md-2" size="100" [ngModel]="button?.title" (ngModelChange)="button.title = $event" [value]="button?.title || ''"
+            placeholder="Your Site">
+          <input type="text" class="col-md-8" style="margin-left: 10px;" size="100" [ngModel]="button?.url" (ngModelChange)="button.url = $event"
+            [value]="button?.url || ''" placeholder="http://yoursite.com">
+        </div>
+        <div *ngIf="button.type == 'phone_number'" class="col-md-10 offset-md-2">
+          <input type="text" class="col-md-2" size="100" [ngModel]="button?.title" (ngModelChange)="button.title = $event" [value]="button?.title|| ''"
+            placeholder="Phone Number">
+          <input type="text" class="col-md-8" style="margin-left: 10px;" size="100" [ngModel]="button?.payload" (ngModelChange)="button.payload = $event"
+            [value]="button?.payload || ''" placeholder="+0123456789">
+        </div>
       </div>
     </div>
   </content>
