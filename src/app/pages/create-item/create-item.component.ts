@@ -28,6 +28,7 @@ export class CreateItemComponent {
     id: "",
     buttons: [{type: "", payload: "", url: ""}]
   };
+  buttonIdx = 0;
   categories = [];
   selectedCategory = {};
   category_id;
@@ -90,10 +91,12 @@ export class CreateItemComponent {
 
               that.item = currentItem;
 
-              if(that.item.buttons && that.item.buttons[0]){
-                that.buttonType = that.item.buttons[0].type;
+              if(that.item.buttons){
+                if(that.item.buttons[that.buttonIdx]){
+                  that.buttonType = that.item.buttons[that.buttonIdx].type;
+                }  
               }else {
-                that.item.buttons = [];
+                that.item.buttons = [{type: "", payload: "", url: ""}];
               }
 
             });
@@ -118,8 +121,8 @@ export class CreateItemComponent {
 
   onChangeButtonType($event) {
     if(this.item.buttons && this.item.buttons.length > 0){
-      delete this.item.buttons[0].url;
-      delete this.item.buttons[0].payload;
+      delete this.item.buttons[this.buttonIdx].url;
+      delete this.item.buttons[this.buttonIdx].payload;
     }
 
     this.buttonType = $event;
@@ -159,9 +162,13 @@ export class CreateItemComponent {
       return;
     }
 
-    if(this.item.buttons && this.item.buttons.length > 0 && Object.keys(this.item.buttons[0]).length != 3){
-      alert("Button is not configured properly.");
-      return;
+    if(this.item.buttons && this.item.buttons.length > 0){
+       this.item.buttons[this.buttonIdx].type = this.buttonType;
+
+       if(Object.keys(this.item.buttons[this.buttonIdx]).length != 3){
+        alert("Button is not configured properly.");
+        return;
+      }
     }
 
     this.http
