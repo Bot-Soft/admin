@@ -1,58 +1,54 @@
-<ngx-blank-layout>
-  <content>
-      <div>
-          <button class="btn btn-success btn-save" (click)="create()">Save</button>
-          <a href="#/bot/{{botId}}/categories" class="btn btn-secondary btn-save">Cancel</a>
-      </div>
-    <div class="row" *ngIf="category.id">
-      <div class="col-md-2">
-        <label>ID</label>
-      </div>
-      <div class="col-md-10">
-        <input class="disabled" type="text" size="100" [value]="category?.id || ''" disabled>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-2">
-        <label>Title</label>
-      </div>
-      <div class="col-md-10">
-        <input type="text" size="100" [ngModel]="category?.title" (ngModelChange)="category.title = $event" [value]="category?.title  || ''">
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-2">
-        <label>Subtitle</label>
-      </div>
-      <div class="col-md-10">
-        <input type="text" size="100" [ngModel]="category?.subtitle" (ngModelChange)="category.subtitle = $event" [value]="category?.subtitle || ''">
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-2">
-        <label>Order</label>
-      </div>
-      <div class="col-md-10">
-        <input type="text" size="2" [ngModel]="category?.order" (ngModelChange)="category.order = $event" [value]="category?.order || ''">
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-2">
-        <label>Call To Action</label>
-      </div>
-      <div class="col-md-10">
-        <input type="text" size="100" [ngModel]="category?.button_text" (ngModelChange)="category.button_text = $event" [value]="category?.button_text || ''">
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-2">
-        <label>Image URL</label>
-      </div>
-      <div class="col-md-10">
-        <input type="text" size="100" [ngModel]="category?.image_url" (ngModelChange)="category.image_url = $event" [value]="category?.image_url || ''">
-        <br />
-        <img *ngIf="category?.image_url" [src]="category?.image_url" height="auto" width="382">
-      </div>
-    </div>
-  </content>
-</ngx-blank-layout>
+<div>
+  <button class="btn btn-success btn-save" (click)="create()">Save</button>
+  <a href="#/bot/{{botId}}/categories" class="btn btn-secondary btn-save">Cancel</a>
+</div>
+<div class="row" *ngIf="category.id">
+  <div class="col-md-2">
+    <label>ID</label>
+  </div>
+  <div class="col-md-10">
+    <input class="disabled" type="text" size="100" [value]="category?.id || ''" disabled>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-2">
+    <label>Title</label>
+  </div>
+  <div class="col-md-10">
+    <input type="text" size="100" [ngModel]="category?.title" (ngModelChange)="category.title = $event" [value]="category?.title  || ''">
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-2">
+    <label>Subtitle</label>
+  </div>
+  <div class="col-md-10">
+    <input type="text" size="100" [ngModel]="category?.subtitle" (ngModelChange)="category.subtitle = $event" [value]="category?.subtitle || ''">
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-2">
+    <label>Order</label>
+  </div>
+  <div class="col-md-10">
+    <input type="text" size="2" [ngModel]="category?.order" (ngModelChange)="category.order = $event" [value]="category?.order || ''">
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-2">
+    <label>Call To Action</label>
+  </div>
+  <div class="col-md-10">
+    <input type="text" size="100" [ngModel]="category?.button_text" (ngModelChange)="category.button_text = $event" [value]="category?.button_text || ''">
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-2">
+    <label>Image URL</label>
+  </div>
+  <div class="col-md-10">
+    <input type="text" size="100" [ngModel]="category?.image_url" (ngModelChange)="category.image_url = $event" [value]="category?.image_url || ''">
+    <br />
+    <img *ngIf="category?.image_url" [src]="category?.image_url" height="auto" width="382">
+  </div>
+</div>

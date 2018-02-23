@@ -1,10 +1,8 @@
-<ngx-blank-layout>
-  <content>
-    <div>
-      <button class="btn btn-success btn-save" (click)="save()">Save</button>
-      <a href="#/bot/{{botId}}/items?category_id={{category_id}}" class="btn btn-secondary btn-save">Cancel</a>
-    </div>
-    <!-- <div class="row" *ngIf="item.id">
+<div>
+  <button class="btn btn-success btn-save" (click)="save()">Save</button>
+  <a href="#/bot/{{botId}}/items?category_id={{category_id}}" class="btn btn-secondary btn-save">Cancel</a>
+</div>
+<!-- <div class="row" *ngIf="item.id">
       <div class="col-md-2">
         <label>ID</label>
       </div>
@@ -12,58 +10,58 @@
         <input class="disabled" type="text" size="100" [value]="item?.id || ''" disabled>
       </div>
     </div> -->
-    <div class="row">
-      <div class="col-md-2">
-        <label>Category</label>
-      </div>
-      <div class="col-md-10">
-        <button class="btn {{selectedCategory == category.id?'btn-info':'btn-secondary'}} btn-category" (click)="onCategoryChange(category)"
-          *ngFor="let category of categories">{{category?.title}}</button>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-2">
-        <label>Title</label>
-      </div>
-      <div class="col-md-10">
-        <input type="text" size="100" [ngModel]="item?.title" (ngModelChange)="item.title = $event" [value]="item?.title  || ''">
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-2">
-        <label>Subtitle</label>
-      </div>
-      <div class="col-md-10">
-        <input type="text" size="100" [ngModel]="item?.subtitle" (ngModelChange)="item.subtitle = $event" [value]="item?.subtitle || ''">
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-2">
-        <label>Image URL</label>
-      </div>
-      <div class="col-md-10">
-        <input type="text" size="100" [ngModel]="item?.image_url" (ngModelChange)="item.image_url = $event" [value]="item?.image_url || ''">
-        <br />
-        <img *ngIf="item?.image_url" [src]="item?.image_url" height="auto" width="382">
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-2">
-        <label>Price</label>
-      </div>
-      <div class="col-md-10">
-        <input type="text" size="10" [ngModel]="item?.price" (ngModelChange)="item.price = $event" [value]="item?.price || ''">
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-2">
-        <label>Currency</label>
-      </div>
-      <div class="col-md-10">
-        <input type="text" size="2" [ngModel]="item?.currency" (ngModelChange)="item.currency = $event" [value]="item?.currency || ''">
-      </div>
-    </div>
-    <!-- <div class="row">
+<div class="row">
+  <div class="col-md-2">
+    <label>Category</label>
+  </div>
+  <div class="col-md-10">
+    <button class="btn {{selectedCategory == category.id?'btn-info':'btn-secondary'}} btn-category" (click)="onCategoryChange(category)"
+      *ngFor="let category of categories">{{category?.title}}</button>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-2">
+    <label>Title</label>
+  </div>
+  <div class="col-md-10">
+    <input type="text" size="100" [ngModel]="item?.title" (ngModelChange)="item.title = $event" [value]="item?.title  || ''">
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-2">
+    <label>Subtitle</label>
+  </div>
+  <div class="col-md-10">
+    <input type="text" size="100" [ngModel]="item?.subtitle" (ngModelChange)="item.subtitle = $event" [value]="item?.subtitle || ''">
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-2">
+    <label>Image URL</label>
+  </div>
+  <div class="col-md-10">
+    <input type="text" size="100" [ngModel]="item?.image_url" (ngModelChange)="item.image_url = $event" [value]="item?.image_url || ''">
+    <br />
+    <img *ngIf="item?.image_url" [src]="item?.image_url" height="auto" width="382">
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-2">
+    <label>Price</label>
+  </div>
+  <div class="col-md-10">
+    <input type="text" size="10" [ngModel]="item?.price" (ngModelChange)="item.price = $event" [value]="item?.price || ''">
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-2">
+    <label>Currency</label>
+  </div>
+  <div class="col-md-10">
+    <input type="text" size="2" [ngModel]="item?.currency" (ngModelChange)="item.currency = $event" [value]="item?.currency || ''">
+  </div>
+</div>
+<!-- <div class="row">
       <div class="col-md-2">
         <label>Order</label>
       </div>
@@ -71,47 +69,45 @@
         <input type="text" size="2" [ngModel]="item?.order" (ngModelChange)="item.order = $event" [value]="item?.order || ''">
       </div>
     </div> -->
-    <div *ngFor="let button of item.buttons;let idx = index">
-      <div class="row">
-        <div class="col-md-2">
-          <label>Button</label>
-          <i style="font-size: 20px;" *ngIf="item.buttons.length < 3" (click)="addButton()" class="icon ion-ios-plus-outline"></i>
-          <i style="font-size: 20px;" *ngIf="item.buttons.length > 0" (click)="removeButton(idx)" class="icon ion-ios-minus-outline"></i>
-        </div>
-        <div [(ngModel)]="button.type" (ngModelChange)="onChangeButtonType(button, $event)" ngbRadioGroup class="btn-divided-group btn-outline-divided-group btn-group-full-width col-md-10">
-          <label ngbButtonLabel class="btn btn-outline-info col-md-2">
-            <input ngbButton type="radio" value="web_url"> URL
-          </label>
-          <label ngbButtonLabel class="btn btn-outline-info col-md-2">
-            <input ngbButton type="radio" value="phone_number"> Phone Call
-          </label>
-          <label *ngIf="gotoblocks?.length > 0" ngbButtonLabel class="btn btn-outline-info col-md-2">
-            <input ngbButton type="radio" value="postback"> Go To
-          </label>
-        </div>
+<div *ngFor="let button of item.buttons;let idx = index">
+  <div class="row">
+    <div class="col-md-2">
+      <label>Button</label>
+      <i style="font-size: 20px;" *ngIf="item.buttons.length < 3" (click)="addButton()" class="icon ion-ios-plus-outline"></i>
+      <i style="font-size: 20px;" *ngIf="item.buttons.length > 0" (click)="removeButton(idx)" class="icon ion-ios-minus-outline"></i>
+    </div>
+    <div [(ngModel)]="button.type" (ngModelChange)="onChangeButtonType(button, $event)" ngbRadioGroup class="btn-divided-group btn-outline-divided-group btn-group-full-width col-md-10">
+      <label ngbButtonLabel class="btn btn-outline-info col-md-2">
+        <input ngbButton type="radio" value="web_url"> URL
+      </label>
+      <label ngbButtonLabel class="btn btn-outline-info col-md-2">
+        <input ngbButton type="radio" value="phone_number"> Phone Call
+      </label>
+      <label *ngIf="gotoblocks?.length > 0" ngbButtonLabel class="btn btn-outline-info col-md-2">
+        <input ngbButton type="radio" value="postback"> Go To
+      </label>
+    </div>
 
-        <div *ngIf="button.type == 'web_url'" class="col-md-10 offset-md-2">
-          <input type="text" class="col-md-2" size="100" [ngModel]="button?.title" (ngModelChange)="button.title = $event" [value]="button?.title || ''"
-            placeholder="Your Site">
-          <input type="text" class="col-md-8" style="margin-left: 10px;" size="100" [ngModel]="button?.url" (ngModelChange)="button.url = $event"
-            [value]="button?.url || ''" placeholder="http://yoursite.com">
-        </div>
-        <div *ngIf="button.type == 'phone_number'" class="col-md-10 offset-md-2">
-          <input type="text" class="col-md-2" size="100" [ngModel]="button?.title" (ngModelChange)="button.title = $event" [value]="button?.title|| ''"
-            placeholder="Phone Number">
-          <input type="text" class="col-md-8" style="margin-left: 10px;" size="100" [ngModel]="button?.payload" (ngModelChange)="button.payload = $event"
-            [value]="button?.payload || ''" placeholder="+0123456789">
-        </div>
-        <div *ngIf="button.type == 'postback'" class="col-md-10 offset-md-2">
-          <div class="form-group">
-            <input type="text" class="col-md-2" size="100" [ngModel]="button?.title" (ngModelChange)="button.title = $event" [value]="button?.title|| ''"
-              placeholder="">
-            <select class=" col-md-8" style="margin-left: 10px;" [ngModel]="button?.payload" (ngModelChange)="button.payload = $event">
-              <option *ngFor="let gotoblock of gotoblocks" [value]="gotoblock.routing_id">{{gotoblock.displayName}}</option>
-            </select>
-          </div>
-        </div>
+    <div *ngIf="button.type == 'web_url'" class="col-md-10 offset-md-2">
+      <input type="text" class="col-md-2" size="100" [ngModel]="button?.title" (ngModelChange)="button.title = $event" [value]="button?.title || ''"
+        placeholder="Your Site">
+      <input type="text" class="col-md-8" style="margin-left: 10px;" size="100" [ngModel]="button?.url" (ngModelChange)="button.url = $event"
+        [value]="button?.url || ''" placeholder="http://yoursite.com">
+    </div>
+    <div *ngIf="button.type == 'phone_number'" class="col-md-10 offset-md-2">
+      <input type="text" class="col-md-2" size="100" [ngModel]="button?.title" (ngModelChange)="button.title = $event" [value]="button?.title|| ''"
+        placeholder="Phone Number">
+      <input type="text" class="col-md-8" style="margin-left: 10px;" size="100" [ngModel]="button?.payload" (ngModelChange)="button.payload = $event"
+        [value]="button?.payload || ''" placeholder="+0123456789">
+    </div>
+    <div *ngIf="button.type == 'postback'" class="col-md-10 offset-md-2">
+      <div class="form-group">
+        <input type="text" class="col-md-2" size="100" [ngModel]="button?.title" (ngModelChange)="button.title = $event" [value]="button?.title|| ''"
+          placeholder="">
+        <select class=" col-md-8" style="margin-left: 10px;" [ngModel]="button?.payload" (ngModelChange)="button.payload = $event">
+          <option *ngFor="let gotoblock of gotoblocks" [value]="gotoblock.routing_id">{{gotoblock.displayName}}</option>
+        </select>
       </div>
     </div>
-  </content>
-</ngx-blank-layout>
+  </div>
+</div>

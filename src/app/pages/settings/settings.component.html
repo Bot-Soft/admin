@@ -1,19 +1,15 @@
-<ngx-blank-layout>
-  <content>
-    <div>
-      <button class="btn btn-success btn-save" (click)="save()">Save</button>
-    </div>
-    <div *ngFor="let textField of textFields" class="row">
-      <div class="col-md-2">
-        <label>{{textField.display_name}}</label>
-      </div>
-      <div class="col-md-10">
-        <input type="text" [name]="textField.name" size="100" [value]="textField.value" [ngModel]="textField?.value" (ngModelChange)="onModelChanged(textField, $event)">
-        <br />
-        <img *ngIf="textField?.value.indexOf('.png')>-1 || textField?.value.indexOf('.jpg')>-1 || textField?.value.indexOf('.jpeg')>-1"
-          [src]="textField.value" height="auto" width="382">
-        <br />
-      </div>
-    </div>
-  </content>
-</ngx-blank-layout>
+<div>
+  <button class="btn btn-success btn-save" (click)="save()">Save</button>
+</div>
+<div *ngFor="let textField of textFields" class="row">
+  <div class="col-md-2">
+    <label>{{textField.display_name}}</label>
+  </div>
+  <div class="col-md-10">
+    <input type="text" [name]="textField.name" size="100" [value]="textField.value" [ngModel]="textField?.value" (ngModelChange)="onModelChanged(textField, $event)">
+    <br />
+    <img *ngIf="textField?.value.indexOf('.png')>-1 || textField?.value.indexOf('.jpg')>-1 || textField?.value.indexOf('.jpeg')>-1"
+      [src]="textField.value" height="auto" width="382">
+    <br />
+  </div>
+</div>
