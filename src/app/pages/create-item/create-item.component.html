@@ -71,20 +71,25 @@
         <input type="text" size="2" [ngModel]="item?.order" (ngModelChange)="item.order = $event" [value]="item?.order || ''">
       </div>
     </div> -->
-    <div *ngFor="let button of item.buttons" >
-      <div *ngIf="!button.type || button.type == 'web_url' || button.type == 'phone_number'" class="row">
+    <div *ngFor="let button of item.buttons;let idx = index">
+      <div class="row">
         <div class="col-md-2">
           <label>Button</label>
+          <i style="font-size: 20px;" *ngIf="item.buttons.length < 3" (click)="addButton()" class="icon ion-ios-plus-outline"></i>
+          <i style="font-size: 20px;" *ngIf="item.buttons.length > 0" (click)="removeButton(idx)" class="icon ion-ios-minus-outline"></i>
         </div>
-        <div [(ngModel)]="button.type" (ngModelChange)="onChangeButtonType($event)" ngbRadioGroup class="btn-divided-group btn-outline-divided-group btn-group-full-width col-md-10">
+        <div [(ngModel)]="button.type" (ngModelChange)="onChangeButtonType(button, $event)" ngbRadioGroup class="btn-divided-group btn-outline-divided-group btn-group-full-width col-md-10">
           <label ngbButtonLabel class="btn btn-outline-info col-md-2">
             <input ngbButton type="radio" value="web_url"> URL
           </label>
           <label ngbButtonLabel class="btn btn-outline-info col-md-2">
             <input ngbButton type="radio" value="phone_number"> Phone Call
           </label>
-
+          <label *ngIf="gotoblocks?.length > 0" ngbButtonLabel class="btn btn-outline-info col-md-2">
+            <input ngbButton type="radio" value="postback"> Go To
+          </label>
         </div>
+
         <div *ngIf="button.type == 'web_url'" class="col-md-10 offset-md-2">
           <input type="text" class="col-md-2" size="100" [ngModel]="button?.title" (ngModelChange)="button.title = $event" [value]="button?.title || ''"
             placeholder="Your Site">
@@ -96,6 +101,15 @@
             placeholder="Phone Number">
           <input type="text" class="col-md-8" style="margin-left: 10px;" size="100" [ngModel]="button?.payload" (ngModelChange)="button.payload = $event"
             [value]="button?.payload || ''" placeholder="+0123456789">
+        </div>
+        <div *ngIf="button.type == 'postback'" class="col-md-10 offset-md-2">
+          <div class="form-group">
+            <input type="text" class="col-md-2" size="100" [ngModel]="button?.title" (ngModelChange)="button.title = $event" [value]="button?.title|| ''"
+              placeholder="">
+            <select class=" col-md-8" style="margin-left: 10px;" [ngModel]="button?.payload" (ngModelChange)="button.payload = $event">
+              <option *ngFor="let gotoblock of gotoblocks" [value]="gotoblock.routing_id">{{gotoblock.displayName}}</option>
+            </select>
+          </div>
         </div>
       </div>
     </div>

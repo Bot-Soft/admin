@@ -26,9 +26,9 @@ export class CreateItemComponent {
     order: "",
     image_url: "",
     id: "",
-    buttons: [{type: "", payload: "", url: ""}]
+    buttons: [{ type: "", payload: "", url: "" }]
   };
-  buttonIdx = 0;
+  gotoblocks = [];
   categories = [];
   selectedCategory = {};
   category_id;
@@ -75,6 +75,19 @@ export class CreateItemComponent {
 
           });
 
+        that.http
+          .get(
+            config.url + "/bots/" +
+            that.botId +
+            "?access_token=" +
+            that.accessToken
+          )
+          .map(response => response.json())
+          .subscribe(res => {
+            that.gotoblocks = res.blocks.template.goto;
+
+          });
+
         if (that.item_id) {
           that.http
             .get(
@@ -91,12 +104,8 @@ export class CreateItemComponent {
 
               that.item = currentItem;
 
-              if(that.item.buttons){
-                if(that.item.buttons[that.buttonIdx]){
-                  that.buttonType = that.item.buttons[that.buttonIdx].type;
-                }  
-              }else {
-                that.item.buttons = [{type: "", payload: "", url: ""}];
+              if (!that.item.buttons) {
+                that.item.buttons = [{ type: "", payload: "", url: "" }];
               }
 
             });
@@ -119,14 +128,48 @@ export class CreateItemComponent {
     this.selectedCategory = category.id;
   }
 
-  onChangeButtonType($event) {
-    if(this.item.buttons && this.item.buttons.length > 0){
-      delete this.item.buttons[this.buttonIdx].url;
-      delete this.item.buttons[this.buttonIdx].payload;
+  addButton() {
+    if (this.item.buttons.length < 3) {
+      this.item.buttons.push({ type: "", payload: "", url: "" });
+    }
+  }
+
+  removeButton(index) {
+    debugger;
+    if (this.item.buttons.length > 1) {
+      this.item.buttons.splice(index, 1);
+    } else {
+      let keys = Object.keys(this.item.buttons[index]);
+      keys.forEach((key) => {
+        if (key != "type") {
+          this.item.buttons[index][key] = "";
+        }
+      });
+    }
+  }
+
+  onChangeButtonType(button, $event) {
+    if (this.item.buttons && this.item.buttons.length > 0) {
+      delete button.url;
+      delete button.payload;
     }
 
     this.buttonType = $event;
 
+  }
+
+  isValidURL(str) {
+    var pattern = new RegExp('^(https?:\\/\\/)?' + // protocol
+      '((([a-z\d]([a-z\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + // domain name
+      '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
+      '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path
+      '(\\?[;&a-z\\d%_.~+=-]*)?' + // query string
+      '(\\#[-a-z\\d_]*)?$', 'i'); // fragment locater
+    if (!pattern.test(str)) {
+      return false;
+    } else {
+      return true;
+    }
   }
 
   save() {
@@ -162,27 +205,42 @@ export class CreateItemComponent {
       return;
     }
 
-    if(this.item.buttons && this.item.buttons.length > 0){
-       this.item.buttons[this.buttonIdx].type = this.buttonType;
+    let errorFlag = false;
+    if (this.item.buttons) {
 
-       if(Object.keys(this.item.buttons[this.buttonIdx]).length != 3){
-        alert("Button is not configured properly.");
-        return;
-      }
+      this.item.buttons.forEach((button) => {
+        let keys = Object.keys(button);
+        keys.forEach((key) => {
+          if (!button[key]) {
+            delete button[key];
+          }
+
+          if (key == "url") {
+            if (!this.isValidURL(button.url)) {
+              alert("Please provide a valid URL.");
+              errorFlag = true;
+            }
+          }
+        });
+      });
     }
 
-    this.http
-      .post(
-        config.url + "/bots/" +
-        this.botId +
-        "/items?access_token=" +
-        this.accessToken,
-        this.item
-      )
-      .map(response => response.json())
-      .subscribe(res => {
-        window.location.replace("#/bot/" + this.botId + "/items?category_id=" + this.selectedCategory);
+    debugger;
 
-      });
+    if (!errorFlag) {
+      this.http
+        .post(
+          config.url + "/bots/" +
+          this.botId +
+          "/items?access_token=" +
+          this.accessToken,
+          this.item
+        )
+        .map(response => response.json())
+        .subscribe(res => {
+          window.location.replace("#/bot/" + this.botId + "/items?category_id=" + this.selectedCategory);
+
+        });
+    }
   }
 }
