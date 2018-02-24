@@ -77,13 +77,13 @@
       <i style="font-size: 20px;" *ngIf="item.buttons.length > 0" (click)="removeButton(idx)" class="icon ion-ios-minus-outline"></i>
     </div>
     <div [(ngModel)]="button.type" (ngModelChange)="onChangeButtonType(button, $event)" ngbRadioGroup class="btn-divided-group btn-outline-divided-group btn-group-full-width col-md-10">
-      <label ngbButtonLabel class="btn btn-outline-info col-md-2">
+      <label ngbButtonLabel class="btn btn-outline-info col-md-1">
         <input ngbButton type="radio" value="web_url"> URL
       </label>
-      <label ngbButtonLabel class="btn btn-outline-info col-md-2">
+      <label ngbButtonLabel class="btn btn-outline-info col-md-1">
         <input ngbButton type="radio" value="phone_number"> Phone Call
       </label>
-      <label *ngIf="gotoblocks?.length > 0" ngbButtonLabel class="btn btn-outline-info col-md-2">
+      <label *ngIf="gotoblocks?.length > 0" ngbButtonLabel class="btn btn-outline-info col-md-1">
         <input ngbButton type="radio" value="postback"> Go To
       </label>
     </div>

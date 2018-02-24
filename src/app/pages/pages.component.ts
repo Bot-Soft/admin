@@ -37,7 +37,7 @@ export class PagesComponent {
         let accessToken = response.authResponse.accessToken;
 
         let botId = that.route.snapshot.params.id;
-        that.http.get(config.url + '/bots/' + botId + '/?access_token=' + accessToken)
+        that.http.get(config.url + '/bots/' + botId + '?access_token=' + accessToken)
           .map(response => response.json()).subscribe(res => {
             let menuItems = [];
 
