@@ -2,112 +2,135 @@
   <button class="btn btn-success btn-save" (click)="save()">Save</button>
   <a href="#/bot/{{botId}}/items?category_id={{category_id}}" class="btn btn-secondary btn-save">Cancel</a>
 </div>
-<!-- <div class="row" *ngIf="item.id">
-      <div class="col-md-2">
-        <label>ID</label>
-      </div>
-      <div class="col-md-10">
-        <input class="disabled" type="text" size="100" [value]="item?.id || ''" disabled>
-      </div>
-    </div> -->
-<div class="row">
-  <div class="col-md-2">
-    <label>Category</label>
+<div class="row" style="margin-left: -15px;">
+  <div class="col-md-3" style="min-width: 370px;">
+    <nb-card size="medium">
+      <nb-card-body>
+        <div *ngIf="item.image_url" class="picture" style.background-image="url({{item?.image_url}})" style="height:200px;"></div>
+
+        <div class="details">
+          <div class="title">
+            {{item.title}}
+          </div>
+          <div class="description">
+            {{item.subtitle}}
+          </div>
+        </div>
+      </nb-card-body>
+      <nb-card-footer *ngFor="let button of item.buttons" style="height: 45px;">
+        <nb-actions size="medium" fullWidth>
+          <nb-action>
+            <a class="pointer">{{button?.title}}</a>
+          </nb-action>
+        </nb-actions>
+      </nb-card-footer>
+    </nb-card>
   </div>
-  <div class="col-md-10">
-    <button class="btn {{selectedCategory == category.id?'btn-info':'btn-secondary'}} btn-category" (click)="onCategoryChange(category)"
-      *ngFor="let category of categories">{{category?.title}}</button>
-  </div>
-</div>
-<div class="row">
-  <div class="col-md-2">
-    <label>Title</label>
-  </div>
-  <div class="col-md-10">
-    <input type="text" size="100" [ngModel]="item?.title" (ngModelChange)="item.title = $event" [value]="item?.title  || ''">
-  </div>
-</div>
-<div class="row">
-  <div class="col-md-2">
-    <label>Subtitle</label>
-  </div>
-  <div class="col-md-10">
-    <input type="text" size="100" [ngModel]="item?.subtitle" (ngModelChange)="item.subtitle = $event" [value]="item?.subtitle || ''">
-  </div>
-</div>
-<div class="row">
-  <div class="col-md-2">
-    <label>Image URL</label>
-  </div>
-  <div class="col-md-10">
-    <input type="text" size="100" [ngModel]="item?.image_url" (ngModelChange)="item.image_url = $event" [value]="item?.image_url || ''">
-    <br />
-    <img *ngIf="item?.image_url" [src]="item?.image_url" height="auto" width="382">
-  </div>
-</div>
-<div class="row">
-  <div class="col-md-2">
-    <label>Price</label>
-  </div>
-  <div class="col-md-10">
-    <input type="text" size="10" [ngModel]="item?.price" (ngModelChange)="item.price = $event" [value]="item?.price || ''">
-  </div>
-</div>
-<div class="row">
-  <div class="col-md-2">
-    <label>Currency</label>
-  </div>
-  <div class="col-md-10">
-    <input type="text" size="2" [ngModel]="item?.currency" (ngModelChange)="item.currency = $event" [value]="item?.currency || ''">
-  </div>
-</div>
-<!-- <div class="row">
-      <div class="col-md-2">
-        <label>Order</label>
-      </div>
-      <div class="col-md-10">
-        <input type="text" size="2" [ngModel]="item?.order" (ngModelChange)="item.order = $event" [value]="item?.order || ''">
-      </div>
-    </div> -->
-<div *ngFor="let button of item.buttons;let idx = index">
-  <div class="row">
-    <div class="col-md-2">
-      <label>Button</label>
-      <i style="font-size: 20px;" *ngIf="item.buttons.length < 3" (click)="addButton()" class="icon ion-ios-plus-outline"></i>
-      <i style="font-size: 20px;" *ngIf="item.buttons.length > 0" (click)="removeButton(idx)" class="icon ion-ios-minus-outline"></i>
+  <div class="col-md-9">
+    <div class="col-md-10">
+      <small class="form-text">Category</small>
+      <button class="btn {{selectedCategory == category.id?'btn-info':'btn-secondary'}} btn-category" (click)="onCategoryChange(category)"
+        *ngFor="let category of categories">{{category?.title}}</button>
     </div>
-    <div [(ngModel)]="button.type" (ngModelChange)="onChangeButtonType(button, $event)" ngbRadioGroup class="btn-divided-group btn-outline-divided-group btn-group-full-width col-md-10">
-      <label ngbButtonLabel class="btn btn-outline-info col-md-1">
-        <input ngbButton type="radio" value="web_url"> URL
-      </label>
-      <label ngbButtonLabel class="btn btn-outline-info col-md-1">
-        <input ngbButton type="radio" value="phone_number"> Phone Call
-      </label>
-      <label *ngIf="gotoblocks?.length > 0" ngbButtonLabel class="btn btn-outline-info col-md-1">
-        <input ngbButton type="radio" value="postback"> Go To
-      </label>
+    <div class="col-md-10 input-field">
+      <small class="form-text">Title</small>
+      <input type="text" size="100" [ngModel]="item?.title" (ngModelChange)="item.title = $event" [value]="item?.title  || ''">
+    </div>
+    <div class="col-md-10 input-field">
+      <small class="form-text">Subtitle</small>
+      <input type="text" size="100" [ngModel]="item?.subtitle" (ngModelChange)="item.subtitle = $event" [value]="item?.subtitle || ''">
+    </div>
+    <div class="col-md-10 input-field">
+      <small class="form-text">Image URL</small>
+      <input type="text" size="100" [ngModel]="item?.image_url" (ngModelChange)="item.image_url = $event" [value]="item?.image_url || ''">
+    </div>
+    <div class="row col-md-10">
+      <div class="col-md-1 input-field">
+        <small class="form-text">Price</small>
+        <input type="text" size="10" style="text-align: right;" [ngModel]="item?.price" (ngModelChange)="item.price = $event" [value]="item?.price || ''">
+      </div>
+      <div class="col-md-1 offset-md-1 input-field">
+        <small class="form-text">Currency</small>
+        <input type="text" size="2" [ngModel]="item?.currency" (ngModelChange)="item.currency = $event" [value]="item?.currency || ''">
+      </div>
     </div>
 
-    <div *ngIf="button.type == 'web_url'" class="col-md-10 offset-md-2">
-      <input type="text" class="col-md-2" size="100" [ngModel]="button?.title" (ngModelChange)="button.title = $event" [value]="button?.title || ''"
-        placeholder="Your Site">
-      <input type="text" class="col-md-8" style="margin-left: 10px;" size="100" [ngModel]="button?.url" (ngModelChange)="button.url = $event"
-        [value]="button?.url || ''" placeholder="http://yoursite.com">
-    </div>
-    <div *ngIf="button.type == 'phone_number'" class="col-md-10 offset-md-2">
-      <input type="text" class="col-md-2" size="100" [ngModel]="button?.title" (ngModelChange)="button.title = $event" [value]="button?.title|| ''"
-        placeholder="Phone Number">
-      <input type="text" class="col-md-8" style="margin-left: 10px;" size="100" [ngModel]="button?.payload" (ngModelChange)="button.payload = $event"
-        [value]="button?.payload || ''" placeholder="+0123456789">
-    </div>
-    <div *ngIf="button.type == 'postback'" class="col-md-10 offset-md-2">
-      <div class="form-group">
-        <input type="text" class="col-md-2" size="100" [ngModel]="button?.title" (ngModelChange)="button.title = $event" [value]="button?.title|| ''"
-          placeholder="">
-        <select class=" col-md-8" style="margin-left: 10px;" [ngModel]="button?.payload" (ngModelChange)="button.payload = $event">
-          <option *ngFor="let gotoblock of gotoblocks" [value]="gotoblock.routing_id">{{gotoblock.displayName}}</option>
-        </select>
-      </div>
+    <!-- <div class="row">
+              <div class="col-md-2">
+                <label>Order</label>
+              </div>
+              <div class="col-md-10">
+                <input type="text" size="2" [ngModel]="item?.order" (ngModelChange)="item.order = $event" [value]="item?.order || ''">
+              </div>
+            </div> -->
+    <div class="col-md-9">
+      <!-- <nb-card size="small">
+        <nb-card-header>
+          <div class="cameras-card-header">
+            <span class="cameras-card-title">Buttons</span>
+          </div>
+        </nb-card-header>
+        <nb-card-body> -->
+          <div *ngFor="let button of item.buttons;let idx = index">
+            <div [(ngModel)]="button.type" (ngModelChange)="onChangeButtonType(button, $event)" ngbRadioGroup class="btn-divided-group btn-outline-divided-group btn-group-full-width">
+              <small class="form-text">
+                <label>Button</label>
+                <i style="font-size: 20px;" *ngIf="item.buttons.length < 3" (click)="addButton()" class="icon ion-ios-plus-outline"></i>
+                <i style="font-size: 20px;" *ngIf="item.buttons.length > 0" (click)="removeButton(idx)" class="icon ion-ios-minus-outline"></i>
+              </small>
+              <!-- <label ngbButtonLabel class="btn btn-outline-info col-md-2">
+                <input ngbButton type="radio" value="web_url"> URL
+              </label>
+              <label ngbButtonLabel class="btn btn-outline-info col-md-2">
+                <input ngbButton type="radio" value="phone_number"> Phone Call
+              </label>
+              <label *ngIf="gotoblocks?.length > 0" ngbButtonLabel class="btn btn-outline-info col-md-2">
+                <input ngbButton type="radio" value="postback"> Go To
+              </label> -->
+
+              <div class=" col-md-3" ngbDropdown>
+                  <button type="button" class="btn btn-sm btn-outline-info" ngbDropdownToggle>
+                      {{getButtonTypeDisplayValue(button)}}
+                  </button>
+                  <ul ngbDropdownMenu class="dropdown-menu">
+                    <li class="dropdown-item pointer" (click)="onChangeButtonType(button, 'web_url')">URL</li>
+                    <li class="dropdown-item pointer" (click)="onChangeButtonType(button, 'phone_number')">Phone Call</li>
+                    <li class="dropdown-item pointer" (click)="onChangeButtonType(button, 'postback')">Go To</li>
+                  </ul>
+                </div>
+            </div>
+            <div *ngIf="button.type == 'web_url'" class="col-md-10">
+              <input type="text" class="col-md-2" size="100" [ngModel]="button?.title" (ngModelChange)="button.title = $event" [value]="button?.title || ''"
+                placeholder="Your Site">
+              <input type="text" class="col-md-8" style="margin-left: 10px;" size="100" [ngModel]="button?.url" (ngModelChange)="button.url = $event"
+                [value]="button?.url || ''" placeholder="http://yoursite.com">
+            </div>
+            <div *ngIf="button.type == 'phone_number'" class="col-md-10">
+              <input type="text" class="col-md-2" size="100" [ngModel]="button?.title" (ngModelChange)="button.title = $event" [value]="button?.title|| ''"
+                placeholder="Phone Number">
+              <input type="text" class="col-md-8" style="margin-left: 10px;" size="100" [ngModel]="button?.payload" (ngModelChange)="button.payload = $event"
+                [value]="button?.payload || ''" placeholder="+0123456789">
+            </div>
+            <div *ngIf="button.type == 'postback'" class="col-md-10">
+              <div class="form-group">
+                <input type="text" class="col-md-2" size="100" [ngModel]="button?.title" (ngModelChange)="button.title = $event" [value]="button?.title|| ''"
+                  placeholder="">
+                <select class=" col-md-8" style="margin-left: 10px;" [ngModel]="button?.payload" (ngModelChange)="button.payload = $event">
+                  <option *ngFor="let gotoblock of gotoblocks" [value]="gotoblock.routing_id">{{gotoblock.displayName}}</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        <!-- </nb-card-body>
+        <nb-card-footer>
+          <nb-actions size="small" fullWidth>
+            <nb-action>
+              <i class="ion-ios-plus-empty"></i>
+              <span> Add Button</span>
+            </nb-action>
+          </nb-actions>
+        </nb-card-footer>
+      </nb-card> -->
     </div>
   </div>
 </div>

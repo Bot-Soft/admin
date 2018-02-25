@@ -3,13 +3,13 @@
     <div class="col-md-6 offset-md-3 col-sm-12 col-lg-6">
       <nb-card [size]="'small'" style="height: 100%">
         <nb-card-header style="text-align:center">
-          Select a page to setup your chatbot.
+            Connect Facebook Page
         </nb-card-header>
         <nb-card-body>
           <div class="contact" *ngFor="let fbpage of fbpages">
             <nb-user [name]="fbpage.name" [title]="fbpage.category" picture="http://graph.facebook.com/{{ fbpage.id }}/picture" size="large"></nb-user>
-            <i *ngIf="!fbpage.hasBotInstalled" class="i-contact ion-ios-download-outline" (click)="setup(fbpage.id, fbpage.name, fbpage.access_token)"></i>
-            <a *ngIf="fbpage.hasBotInstalled" href="#/bot/{{fbpage.id}}"><i class="i-contact ion-ios-gear-outline" style="color:#42db7c"></i></a>
+            <a *ngIf="!fbpage.hasBotInstalled" class="action" style="cursor: pointer;" (click)="setup(fbpage.id, fbpage.name, fbpage.access_token)"><i class="i-contact ion-ios-download-outline"></i>Connect</a>
+            <a *ngIf="fbpage.hasBotInstalled" class="action" href="#/bot/{{fbpage.id}}"><i class="i-contact ion-ios-gear-outline" style="color:#42db7c"></i>Configure</a>
           </div>
         </nb-card-body>
       </nb-card>

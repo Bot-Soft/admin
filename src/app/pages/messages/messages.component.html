@@ -6,6 +6,6 @@
     <label>{{textField.display_name}}</label>
   </div>
   <div class="col-md-10">
-    <input type="text" [name]="textField.name" size="100" [value]="textField?.value" [ngModel]="textField?.value" (ngModelChange)="onModelChanged(textField, $event)">
+    <input type="text" [name]="textField.name" size="100" [value]="textField?.value" [ngModel]="textField?.value" (ngModelChange)="onModelChanged(textField, $event)" [placeholder]="textField?.placeholder">
   </div>
 </div>

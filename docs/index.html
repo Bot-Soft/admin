@@ -51,7 +51,71 @@
         c.parentNode.insertBefore(b, c)
       }
     })(document, window.mixpanel || []);
-    mixpanel.init("3aa07bf4e2efe892bb8abf0527d6d267");</script><!-- end Mixpanel --><link href="styles.7b1ff69f2297f0338bf1.bundle.css" rel="stylesheet"/></head><body><script src="https://connect.facebook.net/en_US/sdk.js"></script><ngx-app>Loading...</ngx-app><style>@-webkit-keyframes spin {
+    mixpanel.init("3aa07bf4e2efe892bb8abf0527d6d267");</script><!-- end Mixpanel --><style>#snackbar {
+      visibility: hidden;
+      min-width: 250px;
+      margin-left: -125px;
+      background-color: #4ca6ff;
+      color: #fff;
+      text-align: center;
+      border-radius: 10px;
+      padding: 16px;
+      position: fixed;
+      z-index: 1;
+      left: 50%;
+      top: 100px;
+      font-size: 17px;
+    }
+
+    #snackbar.show {
+      visibility: visible;
+      -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+      animation: fadein 0.5s, fadeout 0.5s 2.5s;
+    }
+
+    @-webkit-keyframes fadein {
+      from {
+        top: 0;
+        opacity: 0;
+      }
+      to {
+        top: 100px;
+        opacity: 0.9;
+      }
+    }
+
+    @keyframes fadein {
+      from {
+        top: 0;
+        opacity: 0;
+      }
+      to {
+        top: 100px;
+        opacity: 0.9;
+      }
+    }
+
+    @-webkit-keyframes fadeout {
+      from {
+        top: 100px;
+        opacity: 0.9;
+      }
+      to {
+        top: 100px;
+        opacity: 0;
+      }
+    }
+
+    @keyframes fadeout {
+      from {
+        top: 100px;
+        opacity: 0.9;
+      }
+      to {
+        top: 100px;
+        opacity: 0;
+      }
+    }</style><link href="styles.7b1ff69f2297f0338bf1.bundle.css" rel="stylesheet"/></head><body><script src="https://connect.facebook.net/en_US/sdk.js"></script><ngx-app>Loading...</ngx-app><style>@-webkit-keyframes spin {
       0% {
         transform: rotate(0)
       }
@@ -139,4 +203,4 @@
       bottom: 15px;
       box-shadow: 0 5px 0 0 #0084ff;
       animation: spin 1.5s linear infinite;
-    }</style><div id="nb-global-spinner" class="spinner"><div class="blob blob-0"></div><div class="blob blob-1"></div><div class="blob blob-2"></div><div class="blob blob-3"></div><div class="blob blob-4"></div><img src="./assets/images/logo.png"/></div><script type="text/javascript" src="inline.0fa20b5725ff228834e4.bundle.js"></script><script type="text/javascript" src="polyfills.7fbfdec8b96ae2573df7.bundle.js"></script><script type="text/javascript" src="scripts.b4c5d7d7eebb677159ef.bundle.js"></script><script type="text/javascript" src="vendor.2a9cb30f23027d56b377.bundle.js"></script><script type="text/javascript" src="main.49cf96befe4bb690295c.bundle.js"></script></body></html>
+    }</style><div id="nb-global-spinner" class="spinner"><div class="blob blob-0"></div><div class="blob blob-1"></div><div class="blob blob-2"></div><div class="blob blob-3"></div><div class="blob blob-4"></div><img src="./assets/images/logo.png"/></div><div id="snackbar"></div><script type="text/javascript" src="inline.d9d3ab1e51006a40e65d.bundle.js"></script><script type="text/javascript" src="polyfills.7fbfdec8b96ae2573df7.bundle.js"></script><script type="text/javascript" src="scripts.b4c5d7d7eebb677159ef.bundle.js"></script><script type="text/javascript" src="vendor.e53c08610a7593c29cd6.bundle.js"></script><script type="text/javascript" src="main.0cbf5799cc0e8eaed6d0.bundle.js"></script></body></html>

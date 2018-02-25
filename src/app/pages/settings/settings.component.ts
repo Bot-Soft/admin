@@ -90,7 +90,10 @@ export class SettingsComponent {
           )
           .map(response => response.json())
           .subscribe(res => {
-            
+            var x = document.getElementById("snackbar")
+            x.className = "show";
+            x.textContent = "Saved Successfully";
+            setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
 
           });
   }

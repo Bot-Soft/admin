@@ -148,14 +148,28 @@ export class CreateItemComponent {
     }
   }
 
-  onChangeButtonType(button, $event) {
+  onChangeButtonType(button, type) {
     if (this.item.buttons && this.item.buttons.length > 0) {
       delete button.url;
       delete button.payload;
     }
 
-    this.buttonType = $event;
+    button.type = type;
 
+  }
+
+  getButtonTypeDisplayValue(button){
+    switch(button.type){
+      case 'web_url': {
+        return 'URL';
+      }
+      case 'phone_number': {
+        return 'Phone Call'
+      }
+      case 'postback': {
+        return 'Go To';
+      }
+    }
   }
 
   isValidURL(str) {
@@ -224,8 +238,6 @@ export class CreateItemComponent {
         });
       });
     }
-
-    debugger;
 
     if (!errorFlag) {
       this.http
