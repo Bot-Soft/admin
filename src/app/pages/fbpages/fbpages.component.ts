@@ -83,8 +83,6 @@ export class FbPagesComponent implements OnInit, OnDestroy {
         endpoint += '?template_id=' + this.templateId;
       }
 
-      debugger;
-
       FB.api("/me", (response) => {
         this.http.post(endpoint, {
           page_id: pageId,

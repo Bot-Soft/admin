@@ -135,7 +135,6 @@ export class CreateItemComponent {
   }
 
   removeButton(index) {
-    debugger;
     if (this.item.buttons.length > 1) {
       this.item.buttons.splice(index, 1);
     } else {

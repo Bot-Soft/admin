@@ -41,6 +41,11 @@ export class PagesComponent {
           .map(response => response.json()).subscribe(res => {
             let menuItems = [];
 
+            if(!res.blocks){
+              window.location.replace("/#/auth");
+              return;
+            }
+
             res.blocks.template.areas.forEach(element => {
               menuItems.push(element);
             });
