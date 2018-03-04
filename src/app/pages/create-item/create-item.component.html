@@ -20,7 +20,7 @@
       <nb-card-footer *ngFor="let button of item.buttons" style="height: 45px;">
         <nb-actions size="medium" fullWidth>
           <nb-action>
-            <a class="pointer">{{button?.title}}</a>
+            <a class="pointer">{{ button?.title ? button?.title : (button?.type == 'element_share' ? 'Share' : 'Button') }}</a>
           </nb-action>
         </nb-actions>
       </nb-card-footer>
@@ -95,6 +95,7 @@
                   <ul ngbDropdownMenu class="dropdown-menu">
                     <li class="dropdown-item pointer" (click)="onChangeButtonType(button, 'web_url')">URL</li>
                     <li class="dropdown-item pointer" (click)="onChangeButtonType(button, 'phone_number')">Phone Call</li>
+                    <li class="dropdown-item pointer" (click)="onChangeButtonType(button, 'element_share')">Share</li>
                     <li class="dropdown-item pointer" (click)="onChangeButtonType(button, 'postback')">Go To</li>
                   </ul>
                 </div>
@@ -110,6 +111,10 @@
                 placeholder="Phone Number">
               <input type="text" class="col-md-8" style="margin-left: 10px;" size="100" [ngModel]="button?.payload" (ngModelChange)="button.payload = $event"
                 [value]="button?.payload || ''" placeholder="+0123456789">
+            </div>
+            <div *ngIf="button.type == 'element_share'" class="col-md-10">
+              <input type="text" class="col-md-2" size="100" value="Share" disabled>
+              <span class="col-md-8">Share with your Facebook friends</span>
             </div>
             <div *ngIf="button.type == 'postback'" class="col-md-10">
               <div class="form-group">

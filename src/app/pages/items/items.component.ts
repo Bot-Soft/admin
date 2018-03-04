@@ -46,7 +46,7 @@ export class ItemsComponent {
             let _items = res;
 
             that.items = _items.sort((a, b) => {
-              return a.order - b.order;
+              return b.timestamp - a.timestamp;
             });
           });
       } else if (response.status === "not_authorized") {

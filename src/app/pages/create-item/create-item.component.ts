@@ -168,6 +168,9 @@ export class CreateItemComponent {
       case 'postback': {
         return 'Go To';
       }
+      case 'element_share': {
+        return 'Share';
+      }
     }
   }
 
