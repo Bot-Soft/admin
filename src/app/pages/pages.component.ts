@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 import { MENU_ITEMS } from './pages-menu';
 import { Http } from '@angular/http';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 declare let window: any;
 declare let FB: any;
 import config from "../config/config.json";
@@ -21,7 +21,7 @@ export class PagesComponent {
   // menu = MENU_ITEMS;
   menu;
 
-  constructor(private http: Http, private route: ActivatedRoute) {
+  constructor(private http: Http, private route: ActivatedRoute,  private router: Router) {
 
     let that = this;
     
@@ -37,12 +37,13 @@ export class PagesComponent {
         let accessToken = response.authResponse.accessToken;
 
         let botId = that.route.snapshot.params.id;
+
         that.http.get(config.url + '/bots/' + botId + '?access_token=' + accessToken)
           .map(response => response.json()).subscribe(res => {
             let menuItems = [];
 
             if(!res.blocks){
-              window.location.replace("/#/auth");
+              that.router.navigate(['/auth'], { queryParams: that.route.snapshot.queryParams });
               return;
             }
 
@@ -62,10 +63,11 @@ export class PagesComponent {
         // the user is logged in to Facebook,
         // but has not authenticated your app
         window.location.replace("/#/auth");
+        that.router.navigate(['/auth'], { queryParams: that.route.snapshot.queryParams });
 
       } else {
         // the user isn't logged in to Facebook.
-        window.location.replace("/#/auth");
+        that.router.navigate(['/auth'], { queryParams: that.route.snapshot.queryParams });
       }
     });
   }

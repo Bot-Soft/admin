@@ -24,27 +24,26 @@ export class LoginComponent implements OnInit {
         // and signed request each expire
         let uid = response.authResponse.userID;
         let accessToken = response.authResponse.accessToken;
-        debugger;
-        window.location.replace("/#/pages");
+   
+        that.router.navigate(['/pages'], { queryParams: that.route.snapshot.queryParams });
 
       } else if (response.status === "not_authorized") {
         // the user is logged in to Facebook,
         // but has not authenticated your app
 
-        debugger;
+
 
       } else {
         // the user isn't logged in to Facebook.
-        debugger;
+     
       }
     });
 
     FB.Event.subscribe("auth.statusChange", response => {
       if (response.status === "connected") {
         if (response.authResponse) {
-          // window.location.replace("/#/pages");
-          debugger;
-          that.router.navigate(['/pages']);
+
+          that.router.navigate(['/pages'], { queryParams: that.route.snapshot.queryParams });
           FB.api("/me", function (response) {
 
           });
