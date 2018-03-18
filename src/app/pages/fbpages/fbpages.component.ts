@@ -15,7 +15,7 @@ declare let FB: any;
   styleUrls: ['./fbpages.component.scss'],
   templateUrl: './fbpages.component.html',
 })
-export class FbPagesComponent implements OnInit {
+export class FbPagesComponent implements OnInit, OnDestroy {
 
   fbpages: Observable<any[]>;
   recent: any[];
@@ -102,6 +102,10 @@ export class FbPagesComponent implements OnInit {
     }));
 
     this.spinnerService.load();
+  }
+
+  ngOnDestroy() {
+    this.themeSubscription.unsubscribe();
   }
   
 }

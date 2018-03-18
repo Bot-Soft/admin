@@ -25,7 +25,12 @@ export class LoginComponent implements OnInit {
         let uid = response.authResponse.userID;
         let accessToken = response.authResponse.accessToken;
    
-        that.router.navigate(['/pages'], { queryParams: that.route.snapshot.queryParams });
+        // that.router.navigate(['/pages'], { queryParams: that.route.snapshot.queryParams });
+        let queryParams = "?";
+        for(var propertyName in that.route.snapshot.queryParams) {
+          queryParams += propertyName + "=" + that.route.snapshot.queryParams[propertyName];
+       }
+        window.location.replace("/#/pages"+ queryParams);
 
       } else if (response.status === "not_authorized") {
         // the user is logged in to Facebook,
