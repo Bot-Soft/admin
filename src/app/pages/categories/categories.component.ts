@@ -34,10 +34,10 @@ export class CategoriesComponent {
 
         that.http
           .get(
-          config.url + "/bots/" +
-          that.botId +
-          "/categories?access_token=" +
-          that.accessToken
+            config.url + "/bots/" +
+            that.botId +
+            "/categories?access_token=" +
+            that.accessToken
           )
           .map(response => response.json())
           .subscribe(res => {
@@ -47,7 +47,7 @@ export class CategoriesComponent {
               return a.order - b.order;
             });
 
-            if(that.isInitial){
+            if (that.isInitial) {
               const activeModal = that.modalService.open(ModalComponent, {
                 size: 'lg',
                 backdrop: 'static',
@@ -69,8 +69,20 @@ export class CategoriesComponent {
   }
 
   receiveDeleteMessage($event) {
-    this.categories = this.categories.filter((category)=>{
+    this.categories = this.categories.filter((category) => {
       return category.id != $event;
     });
+  }
+
+  create() {
+    if (this.categories.length < 10) {
+      window.location.replace("#/bot/" + this.botId + "/category");
+    }
+    else {
+      var x = document.getElementById("snackbar")
+      x.className = "show";
+      x.textContent = "The MAX number of categories is reached";
+      setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
+    }
   }
 }

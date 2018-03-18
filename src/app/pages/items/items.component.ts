@@ -39,7 +39,7 @@ export class ItemsComponent {
         }
         that.http
           .get(
-          url
+            url
           )
           .map(response => response.json())
           .subscribe(res => {
@@ -61,8 +61,20 @@ export class ItemsComponent {
   }
 
   receiveDeleteMessage($event) {
-    this.items = this.items.filter((item)=>{
+    this.items = this.items.filter((item) => {
       return item.id != $event;
     });
+  }
+
+  create() {
+    if(this.items.length < 10){
+      window.location.replace("/#/bot/" + this.botId + "/item" + (this.categoryId ? ("?category_id=" + this.categoryId):""));
+    }
+    else {
+      var x = document.getElementById("snackbar")
+      x.className = "show";
+      x.textContent = "The MAX number of items is reached";
+      setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
+    }
   }
 }

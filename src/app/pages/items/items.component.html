@@ -1,5 +1,6 @@
 <div>
-  <a href="#/bot/{{botId}}/item{{categoryId?'?category_id=' + categoryId:''}}" class="btn btn-success btn-create">Create</a>
+  <!-- <a href="#/bot/{{botId}}/item{{categoryId?'?category_id=' + categoryId:''}}" class="btn btn-success btn-create">Create</a> -->
+  <button (click)="create()" class="btn btn-success btn-create">Create</button>
 </div>
 <div class="row">
   <div class="col-xxxl-3 col-md-6" *ngFor="let item of items">
