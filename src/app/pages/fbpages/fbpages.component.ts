@@ -37,6 +37,10 @@ export class FbPagesComponent implements OnInit, OnDestroy {
       });
 
       this.templateId = this.route.snapshot.queryParams.template_id;
+
+      if(!this.templateId){
+        window.location.replace("https://botsoft.ai/#botsoft-menu-all");
+      }
   }
 
   ngOnInit() {

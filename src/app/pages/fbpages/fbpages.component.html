@@ -3,6 +3,7 @@
     <div class="col-md-6 offset-md-3 col-sm-12 col-lg-6">
       <nb-card [size]="'small'" style="height: 100%">
         <nb-card-header style="text-align:center">
+          <div *ngIf="templateId"><img src="https://s3.eu-central-1.amazonaws.com/botsoft/templates/{{templateId}}.jpeg" style="width:80%; height: auto;" /></div>
             Connect Facebook Page
         </nb-card-header>
         <nb-card-body>
