@@ -38,9 +38,9 @@ export class FbPagesComponent implements OnInit, OnDestroy {
 
       this.templateId = this.route.snapshot.queryParams.template_id;
 
-      if(!this.templateId){
-        window.location.replace("https://botsoft.ai/#botsoft-menu-all");
-      }
+      // if(!this.templateId){
+      //   window.location.replace("https://botsoft.ai/#botsoft-menu-all");
+      // }
   }
 
   ngOnInit() {
@@ -59,7 +59,15 @@ export class FbPagesComponent implements OnInit, OnDestroy {
 
         that.http.get(config.url + '/pages?access_token=' + accessToken)
           .map(response => response.json()).subscribe(res => {
-            that.fbpages = res;
+         
+            that.fbpages = res.filter((element, index, array)=>{
+              if(that.templateId){
+                return !element.hasBotInstalled;
+              }
+              else {
+                return element.hasBotInstalled;
+              }
+            });
           }
           );
 

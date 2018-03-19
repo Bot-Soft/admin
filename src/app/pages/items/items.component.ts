@@ -67,6 +67,7 @@ export class ItemsComponent {
   }
 
   create() {
+    debugger;
     if(this.items.length < 10){
       window.location.replace("/#/bot/" + this.botId + "/item" + (this.categoryId ? ("?category_id=" + this.categoryId):""));
     }
