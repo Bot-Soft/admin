@@ -252,7 +252,11 @@ export class CreateItemComponent {
         )
         .map(response => response.json())
         .subscribe(res => {
-          window.location.replace("#/bot/" + this.botId + "/items?category_id=" + this.selectedCategory);
+          let navigateToUrl = "#/bot/" + this.botId + "/items";
+          if(this.category_id){
+            navigateToUrl = "#/bot/" + this.botId + "/items?category_id=" + this.category_id;
+          }
+          window.location.replace(navigateToUrl);
 
         });
     }

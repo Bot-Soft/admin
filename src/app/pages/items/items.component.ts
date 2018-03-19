@@ -67,15 +67,15 @@ export class ItemsComponent {
   }
 
   create() {
-    debugger;
-    if(this.items.length < 10){
+    // debugger;
+    // if(this.items.length < 10){
       window.location.replace("/#/bot/" + this.botId + "/item" + (this.categoryId ? ("?category_id=" + this.categoryId):""));
-    }
-    else {
-      var x = document.getElementById("snackbar")
-      x.className = "show";
-      x.textContent = "The MAX number of items is reached";
-      setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
-    }
+    // }
+    // else {
+    //   var x = document.getElementById("snackbar")
+    //   x.className = "show";
+    //   x.textContent = "The MAX number of items is reached";
+    //   setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
+    // }
   }
 }
