@@ -105,6 +105,7 @@ export class FbPagesComponent implements OnInit, OnDestroy {
         }).subscribe(
           res => {
             resolve();
+            mixpanel.track("successfully created");
             mixpanel.track("successfully created " + this.templateId);
             window.location.replace("#/bot/" + pageId + "/categories?initial=true");
           },
