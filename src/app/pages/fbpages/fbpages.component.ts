@@ -9,6 +9,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 declare let window: any;
 declare let FB: any;
+declare let mixpanel: any;
 
 @Component({
   selector: 'ngx-fbpages',
@@ -104,6 +105,7 @@ export class FbPagesComponent implements OnInit, OnDestroy {
         }).subscribe(
           res => {
             resolve();
+            mixpanel.track("successfully created " + this.templateId);
             window.location.replace("#/bot/" + pageId + "/categories?initial=true");
           },
           err => {
