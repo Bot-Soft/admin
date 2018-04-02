@@ -1,0 +1,53 @@
+<nb-card size="small">
+  <nb-card-body>
+    <nb-card-header>
+
+      <nb-actions size="small">
+        <nb-action>
+          <a href="#">
+            <i class="ion ion-ios-plus-empty" title="Add"></i>
+          </a>
+        </nb-action>
+        <nb-action>
+          <a href="#">
+            <i class="ion ion-ios-trash-outline" title="Delete"></i>
+          </a>
+        </nb-action>
+        <nb-action>
+          <span>{{title}}</span>
+        </nb-action>
+      </nb-actions>
+
+    </nb-card-header>
+
+    <div class="details">
+      <div *ngFor="let step of steps; let idx = index; trackBy: customTrackBy">
+        <div class="input-group">
+          <div class="col-12">
+            <nb-card size="small">
+              <nb-card-body>
+                <nb-card-header>
+
+                  <nb-actions size="small">
+                    <nb-action *ngIf="idx > 0 && steps.length > 0">
+                        <i class="ion ion-ios-arrow-up" style="vertical-align: text-top;" title="Up"
+                        (click)="moveUp(idx)"></i>
+                    </nb-action>
+                    <nb-action *ngIf="idx < steps.length-1">
+                        <i class="ion ion-ios-arrow-down" title="Down" (click)="moveDown(idx)"></i>
+                    </nb-action>
+                    <nb-action>
+                        JSON
+                    </nb-action>
+                  </nb-actions>
+
+                </nb-card-header>
+                <textarea style="width: 100%;" [rows]="getNumberOfRows(steps[idx])" placeholder="Text Area" class="form-control" [ngModel]="steps[idx] | json" (ngModelChange)="updateStep(idx, $event)"></textarea>
+              </nb-card-body>
+            </nb-card>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nb-card-body>
+</nb-card>

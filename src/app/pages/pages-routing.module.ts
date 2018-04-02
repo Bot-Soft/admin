@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { PagesComponent } from './pages.component';
 import { CategoriesComponent } from './categories/categories.component';
+import { FlowComponent } from './flow/flow.component';
 import { CreateCategoryComponent } from './create-category/create-category.component';
 import { MessagesComponent } from './messages/messages.component';
 import { ImagesComponent } from './images/images.component';
@@ -40,6 +41,9 @@ const routes: Routes = [{
   }, {
     path: 'people',
     component: PeopleComponent,
+  }, {
+    path: 'flow',
+    component: FlowComponent,
   }, {
     path: 'settings',
     component: SettingsComponent,

@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { PagesComponent } from './pages.component';
 import { LoginModule } from './login/login.module';
 import { CategoriesModule } from './categories/categories.module';
+import { FlowModule } from './flow/flow.module';
 import { CreateCategoryModule } from './create-category/create-category.module';
 import { MessagesModule } from './messages/messages.module';
 import { ImagesModule } from './images/images.module';
@@ -24,6 +25,7 @@ const PAGES_COMPONENTS = [
     PagesRoutingModule,
     ThemeModule,
     CategoriesModule,
+    FlowModule,
     CreateCategoryModule,
     CreateItemModule,
     MessagesModule,

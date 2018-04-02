@@ -1,0 +1,10 @@
+<div>
+    <!-- <a href="#/bot/{{botId}}/category" class="btn btn-success btn-create">Create</a> -->
+    <button (click)="save()" class="btn btn-success btn-create">Save</button>
+    <button (click)="add()" class="btn btn-secondary btn-create">Add Block</button>
+</div>
+<div class="row">
+  <div class="col-xxxl-12 col-md-12" *ngFor="let block of blocks">
+    <ngx-flow-card [steps]="block.steps" [title]="block.title"></ngx-flow-card>
+  </div>
+</div>
