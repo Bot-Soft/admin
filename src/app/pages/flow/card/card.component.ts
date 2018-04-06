@@ -6,6 +6,8 @@ declare let window: any;
 declare let FB: any;
 declare const echarts: any;
 import config from "../../../config/config.json";
+import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
+import { ModalComponent } from "../modal/modal.component";
 
 @Component({
   selector: "ngx-flow-card",
@@ -13,10 +15,11 @@ import config from "../../../config/config.json";
   templateUrl: 'card.component.html',
 })
 export class FlowCardComponent implements AfterViewInit, OnDestroy {
-  
+
   @Input() title: any;
   @Input() steps: any;
   @Output() messageEvent = new EventEmitter<string>();
+  @Output() titleChangedEvent = new EventEmitter<string>();
 
   private value;
 
@@ -25,7 +28,7 @@ export class FlowCardComponent implements AfterViewInit, OnDestroy {
   botId;
   accessToken;
 
-  constructor(private theme: NbThemeService, private http: Http, private route: ActivatedRoute) {
+  constructor(private theme: NbThemeService, private http: Http, private route: ActivatedRoute, private modalService: NgbModal) {
     let that = this;
     this.botId = this.route.parent.snapshot.params.id;
 
@@ -52,7 +55,7 @@ export class FlowCardComponent implements AfterViewInit, OnDestroy {
     });
   }
 
-  getNumberOfRows(step){
+  getNumberOfRows(step) {
     let stepStr = JSON.stringify(step);
     let count1 = (stepStr.match(/:/g) || []).length;
     let count2 = (stepStr.match(/{/g) || []).length;
@@ -60,7 +63,7 @@ export class FlowCardComponent implements AfterViewInit, OnDestroy {
     return count1 + count2 + 1;
   }
 
-  updateStep(idx, $event){
+  updateStep(idx, $event) {
     this.steps[idx] = JSON.parse($event);
   }
 
@@ -68,17 +71,109 @@ export class FlowCardComponent implements AfterViewInit, OnDestroy {
     return index;
   }
 
-  moveUp(index){
-    if(index == 0){
+  moveUp(index) {
+    if (index == 0) {
       return;
     }
     let currentStep = this.steps[index];
-    this.steps[index] = this.steps[index-1];
-    this.steps[index-1] = currentStep;
+    this.steps[index] = this.steps[index - 1];
+    this.steps[index - 1] = currentStep;
   }
 
-  moveDown(index){
+  moveDown(index) {
+    if (index == this.steps.length - 1) {
+      return;
+    }
+    let currentStep = this.steps[index];
+    this.steps[index] = this.steps[index + 1];
+    this.steps[index + 1] = currentStep;
+  }
 
+  add() {
+    const activeModal = this.modalService.open(ModalComponent, {
+      size: 'lg',
+      backdrop: 'static',
+      container: 'nb-layout',
+    });
+
+    let that = this;
+
+    activeModal.componentInstance.addStep = function (stepType) {
+      switch (stepType) {
+        case 'text': {
+          let message = { "text": "Yor text here." };
+          that.steps.push(message);
+          break;
+        }
+        case 'qr-text': {
+          let message = {
+            "quick_replies": [
+              {
+                "content_type": "text",
+                "title": "<BUTTON_TEXT>",
+                "image_url": "http://example.com/img/red.png",
+                "payload": "<DEVELOPER_DEFINED_PAYLOAD>"
+              }
+            ], "text": "Yor text here."
+          };
+          that.steps.push(message);
+          break;
+        }
+        case 'qr-localtion': {
+          let message = {
+            "quick_replies": [
+              {
+                "content_type": "location"
+              }
+            ],
+            "text": "Yor text here."
+          };
+          that.steps.push(message);
+          break;
+        }
+        case 'qr-phonenumber': {
+          let message = {
+            "quick_replies": [
+              {
+                "content_type": "user_phone_number"
+              }
+            ],
+            "text": "Yor text here."
+          };
+          that.steps.push(message);
+          break;
+        }
+        case 'qr-email': {
+          let message = {
+            "quick_replies": [
+              {
+                "content_type":"user_email"
+              }
+            ],
+            "text": "Yor text here."
+          };
+          that.steps.push(message);
+          break;
+        }
+        default: {
+          that.steps.push({});
+        }
+      }
+
+    }
+  }
+
+  deleteStep(index) {
+    this.steps.splice(index, 1)
+  }
+
+  deleteBlock() {
+    this.messageEvent.emit();
+  }
+
+  titleChanged($event){
+    this.title = $event;
+    this.titleChangedEvent.emit($event);
   }
 
   // delete() {

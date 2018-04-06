@@ -1,26 +1,26 @@
-<nb-card size="small">
+<nb-card size="small" id="title">
   <nb-card-body>
     <nb-card-header>
 
       <nb-actions size="small">
         <nb-action>
-          <a href="#">
-            <i class="ion ion-ios-plus-empty" title="Add"></i>
-          </a>
+
+          <i class="ion ion-ios-plus-empty" (click)="add()" title="Add"></i>
+
         </nb-action>
         <nb-action>
-          <a href="#">
-            <i class="ion ion-ios-trash-outline" title="Delete"></i>
-          </a>
+
+          <i class="ion ion-ios-trash-outline" (click)="deleteBlock()" title="Delete"></i>
+
         </nb-action>
         <nb-action>
-          <span>{{title}}</span>
+          <input [ngModel]="title" (ngModelChange)="titleChanged($event)">
         </nb-action>
       </nb-actions>
 
     </nb-card-header>
 
-    <div class="details">
+    <div class="details incard">
       <div *ngFor="let step of steps; let idx = index; trackBy: customTrackBy">
         <div class="input-group">
           <div class="col-12">
@@ -30,19 +30,27 @@
 
                   <nb-actions size="small">
                     <nb-action *ngIf="idx > 0 && steps.length > 0">
-                        <i class="ion ion-ios-arrow-up" style="vertical-align: text-top;" title="Up"
-                        (click)="moveUp(idx)"></i>
-                    </nb-action>
-                    <nb-action *ngIf="idx < steps.length-1">
-                        <i class="ion ion-ios-arrow-down" title="Down" (click)="moveDown(idx)"></i>
+                      <i class="ion ion-ios-arrow-up" style="vertical-align: text-top;" title="Up" (click)="moveUp(idx)"></i>
                     </nb-action>
                     <nb-action>
-                        JSON
+                      <i class="ion ion-ios-close-empty" style="vertical-align: text-top;" (click)="deleteStep(idx)" title="Delete"></i>
                     </nb-action>
                   </nb-actions>
 
                 </nb-card-header>
-                <textarea style="width: 100%;" [rows]="getNumberOfRows(steps[idx])" placeholder="Text Area" class="form-control" [ngModel]="steps[idx] | json" (ngModelChange)="updateStep(idx, $event)"></textarea>
+                <textarea style="width: 100%;" [rows]="getNumberOfRows(steps[idx])" placeholder="Text Area" class="form-control" [ngModel]="steps[idx] | json"
+                  (ngModelChange)="updateStep(idx, $event)"></textarea>
+                <nb-card-header>
+
+                  <nb-actions size="small">
+                    <nb-action *ngIf="idx < steps.length-1">
+                      <i class="ion ion-ios-arrow-down" title="Down" (click)="moveDown(idx)"></i>
+                    </nb-action>
+                  </nb-actions>
+
+                </nb-card-header>
+
+
               </nb-card-body>
             </nb-card>
           </div>

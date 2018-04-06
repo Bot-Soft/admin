@@ -36,14 +36,24 @@ export class FlowComponent {
 
         that.http.get(config.url + '/bots/' + botId + '?access_token=' + that.accessToken)
           .map(response => response.json()).subscribe(res => {
-           
+
             let flow = res.blocks.template.flow;
             var blocksArray = Object.keys(flow).map(index => {
               let block = {};
-              block["steps"] = flow[index];
-              block["index"] = index;
+              if (flow[index] instanceof Array) {
+                block["steps"] = flow[index];
+              }
+              else {
+                block["steps"] = [flow[index]];
+              }
 
-              block["title"] = that.capitalizeFirstLetter(index).replace("-", " ");
+
+              // let blockTitle = index;
+              // if(index == "welcome" || index == "select-item" || index == "select-category" ){
+              //   blockTitle = that.capitalizeFirstLetter(index).replace("-", " ");
+              // }
+
+              block["title"] = index;
 
               return block;
             });
@@ -66,11 +76,19 @@ export class FlowComponent {
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
 
+  add() {
+    this.blocks.push({ title: "Untitled", steps: [] });
+  }
+
+  receiveDeleteMessage(index) {
+    this.blocks.splice(index, 1);
+  }
+
   save() {
     let blockObj = {};
-    for(let idx = 0; idx < this.blocks.length; idx++){
+    for (let idx = 0; idx < this.blocks.length; idx++) {
       let element = this.blocks[idx];
-      blockObj[element.index] = element.steps;
+      blockObj[element.title] = element.steps;
     }
 
     this.http
@@ -89,6 +107,10 @@ export class FlowComponent {
         setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
 
       });
+  }
+
+  titleChanged(idx, $event) {
+    this.blocks[idx].title = $event;
   }
 
   // receiveDeleteMessage($event) {

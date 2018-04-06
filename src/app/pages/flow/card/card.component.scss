@@ -10,9 +10,29 @@
   }
   nb-action {
     font-size: 25px;
+    input {
+      border-left: 0;
+      border-top: 0;
+      border-right: 0;
+      border-bottom: #a09f9fe1 1px dashed;
+
+      outline: none;
+      -webkit-box-shadow: none;
+      -moz-box-shadow: none;
+      box-shadow: none;
+    }
   }
-  nb-card-header {
+  .incard nb-card-header {
     background-color: #f9f9f9;
+    width: auto;
+    padding: 3px;
+  }
+  i {
+    cursor: pointer;
+    color: #40dc7e;
+  }
+  i:hover {
+    color: #8fec8f;
   }
   .picture {
     background-position: center;
@@ -45,9 +65,13 @@
     textarea {
       margin-bottom: 20px;
       resize: none;
-      border: 0;
-      // margin-left: 105px;
+      border: 0; // margin-left: 105px;
       height: auto;
+      overflow: auto;
+      outline: none;
+      -webkit-box-shadow: none;
+      -moz-box-shadow: none;
+      box-shadow: none;
     }
   }
   .pointer {
