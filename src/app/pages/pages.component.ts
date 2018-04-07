@@ -21,11 +21,11 @@ export class PagesComponent {
   // menu = MENU_ITEMS;
   menu;
 
-  constructor(private http: Http, private route: ActivatedRoute,  private router: Router) {
+  constructor(private http: Http, private route: ActivatedRoute, private router: Router) {
 
     let that = this;
-    
-    
+
+
     FB.getLoginStatus(function (response) {
       if (response.status === "connected") {
         // the user is logged in and has authenticated your
@@ -42,20 +42,22 @@ export class PagesComponent {
           .map(response => response.json()).subscribe(res => {
             let menuItems = [];
 
-            if(!res.blocks){
+            if (!res.blocks) {
               that.router.navigate(['/auth'], { queryParams: that.route.snapshot.queryParams });
               return;
             }
 
-            res.blocks.template.areas.forEach(element => {
-              menuItems.push(element);
-            });
+            if (res.blocks.template.areas) {
+              res.blocks.template.areas.forEach(element => {
+                menuItems.push(element);
+              });
 
-            menuItems.sort((a, b) => {
-              return a.order - b.order;
-            });
+              menuItems.sort((a, b) => {
+                return a.order - b.order;
+              });
 
-            that.menu = menuItems;
+              that.menu = menuItems;
+            }
           }
           );
 

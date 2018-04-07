@@ -6,7 +6,7 @@
 <div class="row">
   <nb-tabset style="width: 100%;">
     <nb-tab tabTitle="Design">
-      <div style="width: 100%;" *ngIf="!forExport">
+      <div style="width: 100%;">
         <div class="col-xxxl-12 col-md-12" *ngFor="let block of blocks; let idx = index">
           <ngx-flow-card [steps]="block.steps" [title]="block.title" (titleChangedEvent)="titleChanged(idx, $event)" (messageEvent)="receiveDeleteMessage(idx)"></ngx-flow-card>
         </div>

@@ -4,6 +4,7 @@ import { ActivatedRoute } from "@angular/router";
 import config from "../../config/config.json";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { ModalComponent } from "./modal/modal.component";
+import { ToasterService, ToasterConfig, Toast, BodyOutputType } from 'angular2-toaster';
 declare let window: any;
 declare let FB: any;
 
@@ -38,27 +39,8 @@ export class FlowComponent {
           .map(response => response.json()).subscribe(res => {
 
             let flow = res.blocks.template.flow;
-            var blocksArray = Object.keys(flow).map(index => {
-              let block = {};
-              if (flow[index] instanceof Array) {
-                block["steps"] = flow[index];
-              }
-              else {
-                block["steps"] = [flow[index]];
-              }
 
-
-              // let blockTitle = index;
-              // if(index == "welcome" || index == "select-item" || index == "select-category" ){
-              //   blockTitle = that.capitalizeFirstLetter(index).replace("-", " ");
-              // }
-
-              block["title"] = index;
-
-              return block;
-            });
-
-            that.blocks = blocksArray;
+            that.blocks = flow;
           }
           );
       } else if (response.status === "not_authorized") {
@@ -85,11 +67,6 @@ export class FlowComponent {
   }
 
   save() {
-    let blockObj = {};
-    for (let idx = 0; idx < this.blocks.length; idx++) {
-      let element = this.blocks[idx];
-      blockObj[element.title] = element.steps;
-    }
 
     this.http
       .post(
@@ -97,37 +74,22 @@ export class FlowComponent {
         this.botId +
         "/flow?access_token=" +
         this.accessToken,
-        blockObj
+        this.blocks
       )
       .map(response => response.json())
       .subscribe(res => {
+        let notificationText = "Saved Successfully";
+        if(res != "OK"){
+          notificationText = res;
+        }
         var x = document.getElementById("snackbar")
         x.className = "show";
-        x.textContent = "Saved Successfully";
+        x.textContent = notificationText;
         setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
-
       });
   }
 
   titleChanged(idx, $event) {
     this.blocks[idx].title = $event;
   }
-
-  // receiveDeleteMessage($event) {
-  //   this.categories = this.categories.filter((category) => {
-  //     return category.id != $event;
-  //   });
-  // }
-
-  // create() {
-  //   if (this.categories.length < 10) {
-  //     window.location.replace("#/bot/" + this.botId + "/category");
-  //   }
-  //   else {
-  //     var x = document.getElementById("snackbar")
-  //     x.className = "show";
-  //     x.textContent = "The MAX number of categories is reached";
-  //     setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
-  //   }
-  // }
 }
