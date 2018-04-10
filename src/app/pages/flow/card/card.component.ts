@@ -20,8 +20,11 @@ export class FlowCardComponent implements AfterViewInit, OnDestroy {
   @Input() steps: any;
   @Output() messageEvent = new EventEmitter<string>();
   @Output() titleChangedEvent = new EventEmitter<string>();
+  @Output() moveUpBlockEvent = new EventEmitter<string>();
+  @Output() moveDownBlockEvent = new EventEmitter<string>();
 
   private value;
+  isExpanded;
 
   option: any = {};
   themeSubscription: any;
@@ -174,6 +177,14 @@ export class FlowCardComponent implements AfterViewInit, OnDestroy {
   titleChanged($event){
     this.title = $event;
     this.titleChangedEvent.emit($event);
+  }
+
+  moveUpBlock(){
+    this.moveUpBlockEvent.emit();
+  }
+
+  moveDownBlock(){
+    this.moveDownBlockEvent.emit();
   }
 
   // delete() {

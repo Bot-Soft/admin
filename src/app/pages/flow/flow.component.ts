@@ -92,4 +92,22 @@ export class FlowComponent {
   titleChanged(idx, $event) {
     this.blocks[idx].title = $event;
   }
+
+  moveUpBlock(index) {
+    if (index == 0) {
+      return;
+    }
+    let currentBlock = this.blocks[index];
+    this.blocks[index] = this.blocks[index - 1];
+    this.blocks[index - 1] = currentBlock;
+  }
+
+  moveDownBlock(index) {
+    if (index == this.blocks.length - 1) {
+      return;
+    }
+    let currentBlock = this.blocks[index];
+    this.blocks[index] = this.blocks[index + 1];
+    this.blocks[index + 1] = currentBlock;
+  }
 }
