@@ -2,7 +2,7 @@
   <button class="btn btn-success btn-save" (click)="save()">Save</button>
   <a href="#/bot/{{botId}}/items{{category_id ? '?category_id=' + category_id: ''}}" class="btn btn-secondary btn-save">Cancel</a>
 </div>
-<div class="row" style="margin-left: -15px;">
+<div class="row" style="margin-left: -15px; padding-bottom: 130px;">
   <div class="col-md-3" style="min-width: 370px;">
     <nb-card size="medium">
       <nb-card-body>
@@ -26,7 +26,7 @@
       </nb-card-footer>
     </nb-card>
   </div>
-  <div class="col-md-9">
+  <div class="col-md-8">
     <div class="col-md-10">
       <small class="form-text">Category</small>
       <button class="btn {{selectedCategory == category.id?'btn-info':'btn-secondary'}} btn-category" (click)="onCategoryChange(category)"
@@ -63,7 +63,7 @@
                 <input type="text" size="2" [ngModel]="item?.order" (ngModelChange)="item.order = $event" [value]="item?.order || ''">
               </div>
             </div> -->
-    <div class="col-md-9">
+    <div class="col-md-10">
       <!-- <nb-card size="small">
         <nb-card-header>
           <div class="cameras-card-header">

@@ -18,7 +18,7 @@ declare let mixpanel: any;
 })
 export class FbPagesComponent implements OnInit, OnDestroy {
 
-  fbpages: Observable<any[]>;
+  fbpages: any;
   recent: any[];
   breakpoint: NbMediaBreakpoint;
   breakpoints: any;

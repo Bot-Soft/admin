@@ -9,6 +9,7 @@ import config from "../../../config/config.json";
 
 declare let window: any;
 declare let FB: any;
+declare let fastspring: any;
 
 @Component({
   selector: 'ngx-header',
@@ -32,6 +33,7 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit() {
+
     let that = this;
     FB.getLoginStatus(function (response) {
       if (response.status === "connected") {
@@ -50,6 +52,8 @@ export class HeaderComponent implements OnInit {
         that.http.get(config.url + '/bots/' + botId + '?access_token=' + accessToken)
           .map(response => response.json()).subscribe(res => {
             that.botInfo = res;
+
+            fastspring.builder.tag("pageId", that.botInfo.id);
           }
           );
 
