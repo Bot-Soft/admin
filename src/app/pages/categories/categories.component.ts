@@ -6,6 +6,7 @@ import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { ModalComponent } from "./modal/modal.component";
 declare let window: any;
 declare let FB: any;
+declare let ga: any;
 
 @Component({
   selector: "ngx-categories",
@@ -54,6 +55,7 @@ export class CategoriesComponent {
                 container: 'nb-layout',
               });
               activeModal.componentInstance.pageId = that.botId;
+              ga('send', 'event', 'admin', 'visit', 'source', '1');
             }
 
           });
