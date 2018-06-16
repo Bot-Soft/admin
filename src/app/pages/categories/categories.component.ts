@@ -55,7 +55,7 @@ export class CategoriesComponent {
                 container: 'nb-layout',
               });
               activeModal.componentInstance.pageId = that.botId;
-              ga('send', 'event', 'admin', 'visit', 'source', '1');
+              ga("send", "pageview", "/admin/chatbot-created");
             }
 
           });

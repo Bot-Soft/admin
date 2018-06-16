@@ -10,6 +10,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 declare let window: any;
 declare let FB: any;
 declare let mixpanel: any;
+declare let ga:any;
 
 @Component({
   selector: 'ngx-fbpages',
@@ -71,7 +72,7 @@ export class FbPagesComponent implements OnInit, OnDestroy {
             });
           }
           );
-
+          ga("send", "pageview", "/admin/fbpages-loaded");
 
 
       } else if (response.status === "not_authorized") {
