@@ -70,6 +70,7 @@ export class FbPagesComponent implements OnInit, OnDestroy {
                 return element.hasBotInstalled;
               }
             });
+            
           }
           );
           ga("send", "pageview", "/admin/fbpages-loaded");
@@ -108,7 +109,7 @@ export class FbPagesComponent implements OnInit, OnDestroy {
             resolve();
             mixpanel.track("successfully created");
             mixpanel.track("successfully created " + this.templateId);
-            window.location.replace("#/bot/" + pageId + "/categories?initial=true");
+            window.location.replace("#/bot/" + pageId + "/settings");
           },
           err => {
             reject();

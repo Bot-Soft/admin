@@ -10,7 +10,6 @@ import { ImagesComponent } from './images/images.component';
 import { ItemsComponent } from './items/items.component';
 import { CreateItemComponent } from './create-item/create-item.component';
 import { PeopleComponent } from './people/people.component';
-import { LoginComponent } from './login/login.component';
 import { SettingsComponent } from './settings/settings.component';
 import { OrdersComponent } from './orders/orders.component';
 
@@ -49,7 +48,7 @@ const routes: Routes = [{
     component: SettingsComponent,
   }, {
     path: '',
-    redirectTo: 'categories',
+    redirectTo: 'settings',
     pathMatch: 'full',
   }],
 }];

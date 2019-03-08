@@ -107,6 +107,49 @@
   }
 }
 
+.property-row {
+  margin: 0;
+  margin-left: 1.25rem;
+  color: #a4abb3;
+}
+
+.property-row-text {
+  margin: 0;
+  margin-left: 1.25rem;
+  color: #000000;
+}
+
+.property-row-text i {
+  font-size: 25px;
+  color: #9aa4ad;
+}
+
+.property-row-text i:hover {
+  color: #00dc66;
+}
+
+.property-row label {
+  margin: 0;
+}
+
+.property-row input {
+  margin: 0;
+}
+
+.property-row .custom-control-description {
+  margin-left: 20px;
+}
+
 .input-field {
   padding-top: 20px;
+}
+
+.group-area {
+  padding-top: 20px;
+}
+
+.header {
+  background-color: #e7ecf475;
+  margin-left: 0;
+  padding-left: 1.25rem;
 }

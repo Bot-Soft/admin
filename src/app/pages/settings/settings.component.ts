@@ -20,6 +20,8 @@ export class SettingsComponent {
   textFields;
   accessToken;
   botId;
+  name;
+  secret;
   updatedTextFields = {};
   constructor(private http: Http, private route: ActivatedRoute, private spinnerService: NbSpinnerService) {
     let that = this;
@@ -45,6 +47,8 @@ export class SettingsComponent {
           .map(response => response.json())
           .subscribe(res => {
             let allDataFields = [];
+            that.name = res.name;
+            that.secret = res.secret;
             let dataFields = res.blocks.data;
             for (var key in dataFields) {
               if (dataFields.hasOwnProperty(key)) {
@@ -66,7 +70,6 @@ export class SettingsComponent {
             });
 
             that.textFields = editableDataFields;
-
           });
       } else if (response.status === "not_authorized") {
         // the user is logged in to Facebook,

@@ -1,6 +1,6 @@
 <div>
   <button class="btn btn-success btn-save" (click)="save()">Save</button>
-  <a href="#/bot/{{botId}}/items{{category_id ? '?category_id=' + category_id: ''}}" class="btn btn-secondary btn-save">Cancel</a>
+  <a href="#/bot/{{botId}}/items{{parent_id ? '?parent_id=' + parent_id: ''}}" class="btn btn-secondary btn-save">Cancel</a>
 </div>
 <div class="row" style="margin-left: -15px; padding-bottom: 130px;">
   <div class="col-md-3" style="min-width: 370px;">
@@ -20,7 +20,8 @@
       <nb-card-footer *ngFor="let button of item.buttons" style="height: 45px;">
         <nb-actions size="medium" fullWidth>
           <nb-action>
-            <a class="pointer">{{ button?.title ? button?.title : (button?.type == 'element_share' ? 'Share' : 'Button') }}</a>
+            <a class="pointer">{{ button?.title ? button?.title : (button?.type == 'element_share' ? 'Share' :
+              'Button') }}</a>
           </nb-action>
         </nb-actions>
       </nb-card-footer>
@@ -28,114 +29,80 @@
   </div>
   <div class="col-md-8">
     <div class="col-md-10">
-      <small class="form-text">Category</small>
-      <button class="btn {{selectedCategory == category.id?'btn-info':'btn-secondary'}} btn-category" (click)="onCategoryChange(category)"
-        *ngFor="let category of categories">{{category?.title}}</button>
-    </div>
-    <div class="col-md-10 input-field">
-      <small class="form-text">Title</small>
-      <input type="text" size="100" [ngModel]="item?.title" (ngModelChange)="item.title = $event" [value]="item?.title  || ''">
-    </div>
-    <div class="col-md-10 input-field">
-      <small class="form-text">Subtitle</small>
-      <input type="text" size="100" [ngModel]="item?.subtitle" (ngModelChange)="item.subtitle = $event" [value]="item?.subtitle || ''">
-    </div>
-    <div class="col-md-10 input-field">
-      <small class="form-text">Image URL</small>
-      <input type="text" size="100" [ngModel]="item?.image_url" (ngModelChange)="item.image_url = $event" [value]="item?.image_url || ''">
-    </div>
-    <div class="row col-md-10">
-      <div class="col-md-1 input-field">
-        <small class="form-text">Price</small>
-        <input type="text" size="10" style="text-align: right;" [ngModel]="item?.price" (ngModelChange)="item.price = $event" [value]="item?.price || ''">
-      </div>
-      <div class="col-md-1 offset-md-1 input-field">
-        <small class="form-text">Currency</small>
-        <input type="text" size="2" [ngModel]="item?.currency" (ngModelChange)="item.currency = $event" [value]="item?.currency || ''">
-      </div>
+      <nb-card>
+        <nb-card-header>Properties</nb-card-header>
+        <nb-card-body [style.overflow]="'hidden'">
+
+          <div class="property-row form-group row">
+            <label class="col-sm-2 col-form-label" for="inputTitle">title</label>
+            <div class="col-sm-10"><input class="form-control" id="inputTitle" type="text" size="100" [ngModel]="item?.title"
+                (ngModelChange)="item.title = $event" [value]="item?.title  || ''"></div>
+          </div>
+
+          <div class="form-group row property-row">
+            <label class="col-sm-2 col-form-label" for="inputSubtitle">subtitle</label>
+            <div class="col-sm-10"><input class="form-control" id="inputSubtitle" type="text" size="100" [ngModel]="item?.subtitle"
+                (ngModelChange)="item.subtitle = $event" [value]="item?.subtitle || ''"></div>
+          </div>
+
+          <div class="form-group row property-row">
+            <label class="col-sm-2 col-form-label" for="inputImageUrl">image_url</label>
+            <div class="col-sm-10"><input class="form-control" id="inputImageUrl" type="text" size="100" [ngModel]="item?.image_url"
+                (ngModelChange)="item.image_url = $event" [value]="item?.image_url || ''"></div>
+          </div>
+
+        </nb-card-body>
+      </nb-card>
     </div>
 
-    <!-- <div class="row">
-              <div class="col-md-2">
-                <label>Order</label>
-              </div>
-              <div class="col-md-10">
-                <input type="text" size="2" [ngModel]="item?.order" (ngModelChange)="item.order = $event" [value]="item?.order || ''">
-              </div>
-            </div> -->
     <div class="col-md-10">
-      <!-- <nb-card size="small">
-        <nb-card-header>
-          <div class="cameras-card-header">
-            <span class="cameras-card-title">Buttons</span>
-          </div>
-        </nb-card-header>
-        <nb-card-body> -->
-          <div *ngFor="let button of item.buttons;let idx = index">
-            <div [(ngModel)]="button.type" (ngModelChange)="onChangeButtonType(button, $event)" ngbRadioGroup class="btn-divided-group btn-outline-divided-group btn-group-full-width">
-              <small class="form-text">
-                <label>Button</label>
-                <i style="font-size: 20px;" *ngIf="item.buttons.length < 3" (click)="addButton()" class="icon ion-ios-plus-outline"></i>
-                <i style="font-size: 20px;" *ngIf="item.buttons.length > 0" (click)="removeButton(idx)" class="icon ion-ios-minus-outline"></i>
-              </small>
-              <!-- <label ngbButtonLabel class="btn btn-outline-info col-md-2">
-                <input ngbButton type="radio" value="web_url"> URL
-              </label>
-              <label ngbButtonLabel class="btn btn-outline-info col-md-2">
-                <input ngbButton type="radio" value="phone_number"> Phone Call
-              </label>
-              <label *ngIf="gotoblocks?.length > 0" ngbButtonLabel class="btn btn-outline-info col-md-2">
-                <input ngbButton type="radio" value="postback"> Go To
-              </label> -->
+      <nb-card>
+        <nb-card-header>Default Action</nb-card-header>
+        <nb-card-body [style.overflow]="'hidden'">
 
-              <div class=" col-md-3" ngbDropdown>
-                  <button type="button" class="btn btn-sm btn-outline-info" ngbDropdownToggle>
-                      {{getButtonTypeDisplayValue(button)}}
-                  </button>
-                  <ul ngbDropdownMenu class="dropdown-menu">
-                    <li class="dropdown-item pointer" (click)="onChangeButtonType(button, 'web_url')">URL</li>
-                    <li class="dropdown-item pointer" (click)="onChangeButtonType(button, 'phone_number')">Phone Call</li>
-                    <li class="dropdown-item pointer" (click)="onChangeButtonType(button, 'element_share')">Share</li>
-                    <li class="dropdown-item pointer" (click)="onChangeButtonType(button, 'postback')">Go To</li>
-                  </ul>
-                </div>
-            </div>
-            <div *ngIf="button.type == 'web_url'" class="col-md-10">
-              <input type="text" class="col-md-2" size="100" [ngModel]="button?.title" (ngModelChange)="button.title = $event" [value]="button?.title || ''"
-                placeholder="Your Site">
-              <input type="text" class="col-md-8" style="margin-left: 10px;" size="100" [ngModel]="button?.url" (ngModelChange)="button.url = $event"
-                [value]="button?.url || ''" placeholder="http://yoursite.com">
-            </div>
-            <div *ngIf="button.type == 'phone_number'" class="col-md-10">
-              <input type="text" class="col-md-2" size="100" [ngModel]="button?.title" (ngModelChange)="button.title = $event" [value]="button?.title|| ''"
-                placeholder="Phone Number">
-              <input type="text" class="col-md-8" style="margin-left: 10px;" size="100" [ngModel]="button?.payload" (ngModelChange)="button.payload = $event"
-                [value]="button?.payload || ''" placeholder="+0123456789">
-            </div>
-            <div *ngIf="button.type == 'element_share'" class="col-md-10">
-              <input type="text" class="col-md-2" size="100" value="Share" disabled>
-              <span class="col-md-8">Share with your Facebook friends</span>
-            </div>
-            <div *ngIf="button.type == 'postback'" class="col-md-10">
-              <div class="form-group">
-                <input type="text" class="col-md-2" size="100" [ngModel]="button?.title" (ngModelChange)="button.title = $event" [value]="button?.title|| ''"
-                  placeholder="">
-                <select class=" col-md-8" style="margin-left: 10px;" [ngModel]="button?.payload" (ngModelChange)="button.payload = $event">
-                  <option *ngFor="let gotoblock of gotoblocks" [value]="gotoblock.routing_id">{{gotoblock.displayName}}</option>
-                </select>
-              </div>
+          <div class="form-group row property-row">
+            <label class="col-sm-2 col-form-label" for="inputDefaultActionUrl">url</label>
+            <div class="col-sm-10"><input class="form-control" id="inputDefaultActionUrl" type="text" size="100"
+                [ngModel]="item?.default_action.url" (ngModelChange)="item.default_action.url = $event" [value]="item?.default_action.url || ''"></div>
+          </div>
+
+          <div class="form-group row property-row">
+            <label class="col-sm-2 col-form-label" for="inputDefaultActionWHR">webview_height</label>
+            <div class="col-sm-10">
+              <label class="custom-control custom-radio"><input class="custom-control-input" name="customRadio" type="radio"><span
+                  class="custom-control-indicator"></span><span class="custom-control-description">compact</span></label>
+              <label class="custom-control custom-radio"><input checked="" class="custom-control-input" name="customRadio"
+                  type="radio"><span class="custom-control-indicator"></span><span class="custom-control-description">tall</span></label>
+              <label class="custom-control custom-radio"><input class="custom-control-input" name="customRadio" type="radio"><span
+                  class="custom-control-indicator"></span><span class="custom-control-description">full</span></label>
             </div>
           </div>
-        <!-- </nb-card-body>
-        <nb-card-footer>
-          <nb-actions size="small" fullWidth>
-            <nb-action>
-              <i class="ion-ios-plus-empty"></i>
-              <span> Add Button</span>
-            </nb-action>
-          </nb-actions>
-        </nb-card-footer>
-      </nb-card> -->
+        </nb-card-body>
+      </nb-card>
     </div>
+
+    <div class="col-md-10">
+      <nb-card>
+        <nb-card-header>
+          <nb-actions fullwidth="" size="medium" class="medium full-width">
+            <nb-action>Buttons</nb-action>
+            <nb-action *ngIf="item.buttons.length < 3" class="pointer" style="color: #9aa4ad;" (click)="addButton();"><i class="nb-plus"></i>Add New</nb-action>
+          </nb-actions>
+        </nb-card-header>
+        <nb-card-body [style.overflow]="'hidden'">
+          <div class="form-group row property-row header">
+            <div class="col-sm-5 col-form-label">Type</div>
+            <div class="col-sm-5 col-form-label">Title</div>
+            <div class="col-sm-2 col-form-label">Actions</div>
+          </div>
+          <div *ngFor="let button of item.buttons; let idx = index" class="form-group row property-row-text">
+            <div class="col-sm-5 col-form-label">{{button.type}}</div>
+            <div class="col-sm-5 col-form-label">{{button.title}}</div>
+            <div class="col-sm-2 col-form-label"><i class="nb-compose pointer" (click)="openButtonModal(button);"></i><i class="nb-trash pointer" (click)="deleteButton(button);"></i><i *ngIf="idx+1 < item.buttons.length" (click)="moveButtonDown(idx)" class="nb-arrow-thin-down pointer"></i><i *ngIf="idx > 0" (click)="moveButtonUp(idx)" class="nb-arrow-thin-up pointer"></i></div>
+          </div>
+        </nb-card-body>
+      </nb-card>
+    </div>
+
   </div>
 </div>

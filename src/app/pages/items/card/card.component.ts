@@ -16,8 +16,7 @@ export class ItemsCardComponent {
   @Input() image: string;
   @Input() title: string;
   @Input() subtitle: string;
-  @Input() price: string;
-  @Input() category_id: any;
+  @Input() parent_id: any;
   @Input() item_id: any;
 
   @Output() messageEvent = new EventEmitter<string>();

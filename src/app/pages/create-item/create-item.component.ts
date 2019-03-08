@@ -1,12 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { NbThemeService, NbMediaBreakpoint, NbMediaBreakpointsService } from '@nebular/theme';
 import { Http } from '@angular/http';
-import { FbPagesService } from '../../@core/data/fbpages.service';
-import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 import { ActivatedRoute } from '@angular/router';
-import { debuglog } from 'util';
 import config from "../../config/config.json";
+import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
+import { ModalComponent } from "./modal/modal.component";
 
 declare let window: any;
 declare let FB: any;
@@ -21,24 +19,28 @@ export class CreateItemComponent {
   item = {
     subtitle: "",
     title: "",
-    price: "",
-    currency: "",
     order: "",
     image_url: "",
     id: "",
-    buttons: [{ type: "", payload: "", url: "" }]
+    buttons: [],
+    default_action: {
+      type: "web_url",
+      url: "",
+      messenger_extensions: true,
+      webview_height_ratio: "full"
+    }
   };
   gotoblocks = [];
-  categories = [];
-  selectedCategory = {};
-  category_id;
+  parents = [];
+  selectedParent = {};
+  parent_id;
   item_id;
   buttonType: string;
   accessToken;
-  constructor(private http: Http, private route: ActivatedRoute) {
+  constructor(private http: Http, private route: ActivatedRoute, private modalService: NgbModal) {
     let that = this;
     this.botId = this.route.parent.snapshot.params.id;
-    this.category_id = this.route.snapshot.queryParams.category_id;
+    this.parent_id = this.route.snapshot.queryParams.parent_id;
     this.item_id = this.route.snapshot.queryParams.id;
     this.accessToken;
 
@@ -52,57 +54,55 @@ export class CreateItemComponent {
         let uid = response.authResponse.userID;
         that.accessToken = response.authResponse.accessToken;
 
-        that.http
-          .get(
-            config.url + "/bots/" +
-            that.botId +
-            "/categories?access_token=" +
-            that.accessToken
-          )
-          .map(response => response.json())
-          .subscribe(res => {
-            that.categories = res;
-            if (that.category_id) {
-              that.categories = that.categories.map((category) => {
-                if (category.id == that.category_id) {
-                  that.selectedCategory = category.id;
-                }
-                return category;
-              });
-            } else {
-              that.selectedCategory = that.categories[0].id;
-            }
+        // that.http
+        //   .get(
+        //     config.url + "/bots/" +
+        //     that.botId +
+        //     "/items?access_token=" +
+        //     that.accessToken
+        //   )
+        //   .map(response => response.json())
+        //   .subscribe(res => {
+        //     that.parents = res;
+        //     if (that.parent_id) {
+        //       that.parents = that.parents.map((parent) => {
+        //         if (parent.id == that.parent_id) {
+        //           that.selectedParent = parent.id;
+        //         }
+        //         return parent;
+        //       });
+        //     } else {
+        //       if (that.parents.length > 0) {
+        //         that.selectedParent = that.parents[0].id;
+        //       }
+        //     }
+        //   });
 
-          });
+        // that.http
+        //   .get(
+        //     config.url + "/bots/" +
+        //     that.botId +
+        //     "?access_token=" +
+        //     that.accessToken
+        //   )
+        //   .map(response => response.json())
+        //   .subscribe(res => {
+        //     that.gotoblocks = res.blocks.template.goto;
 
-        that.http
-          .get(
-            config.url + "/bots/" +
-            that.botId +
-            "?access_token=" +
-            that.accessToken
-          )
-          .map(response => response.json())
-          .subscribe(res => {
-            that.gotoblocks = res.blocks.template.goto;
-
-          });
+        //   });
 
         if (that.item_id) {
           that.http
             .get(
               config.url + "/bots/" +
               that.botId +
-              "/items?access_token=" +
+              "/items/" + that.item_id + "?access_token=" +
               that.accessToken
             )
             .map(response => response.json())
             .subscribe(res => {
-              let currentItem = res.find((item) => {
-                return item.id == that.item_id;
-              });
 
-              that.item = currentItem;
+              that.item = res;
 
               if (!that.item.buttons) {
                 that.item.buttons = [{ type: "", payload: "", url: "" }];
@@ -110,9 +110,6 @@ export class CreateItemComponent {
 
             });
         }
-
-
-
       } else if (response.status === "not_authorized") {
         // the user is logged in to Facebook,
         // but has not authenticated your app
@@ -124,14 +121,71 @@ export class CreateItemComponent {
     });
   }
 
-  onCategoryChange(category) {
-    this.selectedCategory = category.id;
+  openButtonModal(curButton = {}) {
+    const activeModal = this.modalService.open(ModalComponent, {
+      size: 'lg',
+      backdrop: 'static',
+      container: 'nb-layout',
+    });
+
+    let that = this;
+
+    activeModal.componentInstance.button = curButton;
+    if (!curButton["type"]) {
+
+      activeModal.componentInstance.action = "Create Button";
+      activeModal.componentInstance.saveButtonName = "Create";
+    }
+    else {
+      activeModal.componentInstance.action = "Edit Button";
+      activeModal.componentInstance.saveButtonName = "Save";
+    }
+
+    activeModal.componentInstance.addButtonRef = function (button) {
+
+      if (activeModal.componentInstance.action == "Create Button") {
+        that.item.buttons.push(button);
+      }
+      else {
+        let updateIndex = that.item.buttons.indexOf(curButton);
+        if (updateIndex > -1) {
+          that.item.buttons[updateIndex] = {};
+          that.item.buttons[updateIndex] = button;
+        }
+      }
+
+    };
+  }
+
+  deleteButton(button) {
+    let deleteElementIdx = this.item.buttons.indexOf(button);
+    if (deleteElementIdx > -1) {
+      this.item.buttons.splice(deleteElementIdx, 1);
+    }
   }
 
   addButton() {
     if (this.item.buttons.length < 3) {
-      this.item.buttons.push({ type: "", payload: "", url: "" });
+      this.openButtonModal();
     }
+  }
+
+  moveButtonUp(index) {
+    if (index == 0) {
+      return;
+    }
+    let currentButton = this.item.buttons[index];
+    this.item.buttons[index] = this.item.buttons[index - 1];
+    this.item.buttons[index - 1] = currentButton;
+  }
+
+  moveButtonDown(index) {
+    if (index == this.item.buttons.length - 1) {
+      return;
+    }
+    let currentButton = this.item.buttons[index];
+    this.item.buttons[index] = this.item.buttons[index + 1];
+    this.item.buttons[index + 1] = currentButton;
   }
 
   removeButton(index) {
@@ -145,16 +199,6 @@ export class CreateItemComponent {
         }
       });
     }
-  }
-
-  onChangeButtonType(button, type) {
-    if (this.item.buttons && this.item.buttons.length > 0) {
-      delete button.url;
-      delete button.payload;
-    }
-
-    button.type = type;
-
   }
 
   getButtonTypeDisplayValue(button) {
@@ -174,46 +218,22 @@ export class CreateItemComponent {
     }
   }
 
-  isValidURL(str) {
-    let regexp = /^(?:(?:https?|ftp):\/\/)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:\/\S*)?$/;
-    if (regexp.test(str)) {
-      return true;
-    }
-    else {
-      return false;
-    }
-  }
-
   save() {
-    this.item["category_id"] = this.selectedCategory;
+
+    this.parent_id = this.selectedParent;
 
     if (!this.item["title"]) {
-      alert("Category title is required.");
+      alert("Title is required.");
       return;
     }
 
     if (!this.item["subtitle"]) {
-      alert("Category subtitle is required.");
+      alert("Subtitle is required.");
       return;
     }
 
     if (!this.item["image_url"]) {
-      alert("Category Image URL is required.");
-      return;
-    }
-
-    if (!this.item["currency"]) {
-      alert("Category Currency is required.");
-      return;
-    }
-
-    if (!this.item["price"]) {
-      alert("Category Price is required.");
-      return;
-    }
-
-    if (!this.item["category_id"]) {
-      alert("Category Category ID is required.");
+      alert("Image URL is required.");
       return;
     }
 
@@ -225,13 +245,6 @@ export class CreateItemComponent {
         keys.forEach((key) => {
           if (!button[key]) {
             delete button[key];
-          }
-
-          if (key == "url") {
-            if (!this.isValidURL(button.url)) {
-              alert("Please provide a valid URL.");
-              errorFlag = true;
-            }
           }
         });
       });
@@ -249,9 +262,6 @@ export class CreateItemComponent {
         .map(response => response.json())
         .subscribe(res => {
           let navigateToUrl = "#/bot/" + this.botId + "/items";
-          if (this.category_id) {
-            navigateToUrl = "#/bot/" + this.botId + "/items?category_id=" + this.category_id;
-          }
           window.location.replace(navigateToUrl);
 
         });

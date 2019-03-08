@@ -13,11 +13,11 @@ import config from "../../config/config.json";
 export class ItemsComponent {
   items;
   botId;
-  categoryId;
+  parentId;
   constructor(private http: Http, private route: ActivatedRoute) {
     let that = this;
     this.botId = this.route.parent.snapshot.params.id;
-    this.categoryId = this.route.parent.snapshot.queryParams.category_id;
+    this.parentId = this.route.parent.snapshot.queryParams.parent_id;
 
     FB.getLoginStatus(function (response) {
       if (response.status === "connected") {
@@ -34,8 +34,8 @@ export class ItemsComponent {
           "/items?access_token=" +
           accessToken;
 
-        if (that.categoryId) {
-          url += "&category_id=" + that.categoryId;
+        if (that.parentId) {
+          url += "&parent_id=" + that.parentId;
         }
         that.http
           .get(
@@ -69,7 +69,7 @@ export class ItemsComponent {
   create() {
     // debugger;
     // if(this.items.length < 10){
-      window.location.replace("/#/bot/" + this.botId + "/item" + (this.categoryId ? ("?category_id=" + this.categoryId):""));
+      window.location.replace("/#/bot/" + this.botId + "/item" + (this.parentId ? ("?parent_id=" + this.parentId):""));
     // }
     // else {
     //   var x = document.getElementById("snackbar")
