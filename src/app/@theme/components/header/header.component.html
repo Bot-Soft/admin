@@ -8,7 +8,7 @@
     </div>
   </div>
 </div>
-<nb-user *ngIf="botInfo?.id" style="width: 30%;" [name]="botInfo?.name" picture="http://graph.facebook.com/{{ botInfo?.id }}/picture" size="large"></nb-user>
+<nb-user *ngIf="botInfo?.id" style="width: 30%;" [name]="botInfo?.name" picture="https://graph.facebook.com/{{ botInfo?.id }}/picture" size="large"></nb-user>
 <nb-actions size="medium" class="header-container" [class.right]="position === 'normal'" [class.left]="position === 'inverse'">
   <nb-action>
     <nb-user [menu]="userMenu" [name]="user?.name" [picture]="user?.picture" size="large"></nb-user>
